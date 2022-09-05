@@ -66,7 +66,7 @@ public class Project {
 	
 	
 	@OneToOne
-	@JoinColumn(nullable = false, name = "projecStatus",referencedColumnName = "psId")
+	@JoinColumn(nullable = false, name = "projectStatus",referencedColumnName = "psId")
 	private ProjectStatus projectStatus; 
 	
 }
