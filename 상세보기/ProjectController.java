@@ -32,7 +32,7 @@ public class ProjectController {
 		return "project_list";
 	}
 	
-	@RequestMapping(value = "/detail/{pId}")  //여기서 뭐가 변수인지 질문하기
+	@RequestMapping(value = "/detail/{pId}")
 	public String detail(Model model, @PathVariable("pId") Long pId) {
 		Project project = this.projectService.getProject(pId);
 		model.addAttribute("project", project);
