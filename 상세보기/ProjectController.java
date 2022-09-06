@@ -38,29 +38,4 @@ public class ProjectController {
 		model.addAttribute("project", project);
 		return "project_detail";
 	}
-	
-	@GetMapping("/create")
-	public String projectCreate(ProjectForm projectForm) {
-		return "project_form";
-	}
-	
-	@PostMapping("/create")
-    public String projectCreate(
-    		@Valid ProjectForm projectForm, BindingResult bindingResult
-    ) {
-		if (bindingResult.hasErrors()) {
-            return "project_form";
-        }
-        // TODO 질문을 저장한다.
-		this.projectService.create(
-				projectForm.getPCate(),
-				projectForm.getPName(),
-				projectForm.getPDesc(), 
-				projectForm.getPGoal(),
-				projectForm.getPSdate(),
-				projectForm.getPEdate(),
-				projectForm.getPCreator()
-		);
-        return "redirect:/project/list"; // 질문 저장후 질문목록으로 이동
-    }
 }
