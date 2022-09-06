@@ -29,18 +29,4 @@ public class ProjectService {
 			throw new DataNotFoundException("project not found");
 		}
 	}
-	
-	public void create(String pCate, String pName, String pDesc, 
-			BigDecimal pGoal, LocalDate pSdate, LocalDate pEdate, String pCreator)
-	{
-		Project p = new Project();
-		p.setPCate(pCate);
-		p.setPName(pName);
-        p.setPDesc(pDesc);
-        p.setPGoal(pGoal);
-        p.setPSdate(pSdate);
-        p.setPEdate(pEdate);
-        p.setPCreator(pCreator);
-        this.projectRepository.save(p);
-	}
 }
