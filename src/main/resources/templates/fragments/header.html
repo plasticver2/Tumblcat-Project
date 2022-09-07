@@ -1,0 +1,50 @@
+
+
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  th:fragment="fragment-header">
+<head>
+<meta charset="utf-8" />
+<title>fragment-header</title>
+<link th:href="@{/header.css}" rel="stylesheet" />
+
+</head>
+<body>
+	<div id="wrapper">
+		<!-- Header -->
+		<header id="header_part">
+			<div id="menu">
+				<ul class="main1">
+					<li style="border: none;"><a href="#"><b style="font-size: 20px;"><span style="font-size: 20px;">≡</span> 카테고리</b></a>
+						<ul class="main2">
+							<li><a href="#">전체</a>				
+							<li><a href="#">웹툰 리소스</a></li>
+							<li><a href="#">반려동물</a></li>
+							<li><a href="#">주얼리</a></li>
+							<li><a href="#">음악</a></li>
+							</li>
+						</ul>
+					</li>
+					<li><a href="main.html">홈</a></li>					
+					<li><a href="#">공개예정</a></li>
+					<li><a th:href="@{/project/create}">프로젝트 올리기</a></li>
+					<li><a href="login.html">로그인</a></li>
+					<li><a href="signup.html">회원가입</a></li>
+					<li style="border: none;"><a href="#">마이페이지</a>
+						<ul class="main2">
+							<li><a href="profile.html">프로필</a></li>
+							<li><a href="pledged.html">후원현황</a></li>
+							<li><a href="liked.html">관심프로젝트</a></li>
+							<li><a href="notice.html">알림</a></li>
+							<li><a href="myproject.html">내가만든프로젝트</a></li>
+							<li><a href="setting_account_a.html">설정</a></li>
+							<li><a href="#">로그아웃</a></li>	
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</header>
+	</div>
+</body>
+</html>
