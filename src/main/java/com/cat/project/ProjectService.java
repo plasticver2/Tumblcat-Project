@@ -21,10 +21,6 @@ public class ProjectService {
 		return this.projectRepository.findAll();
 	}
 	
-	public List<Project> getCateList(String pCate){
-		return this.projectRepository.findAllByCate(pCate);
-	}
-	
 	public Project getProject(Long pId) {
 		Optional<Project> project = this.projectRepository.findById(pId);
 		if(project.isPresent()) {

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cat.project.entity.Project;
 
@@ -28,13 +29,6 @@ public class ProjectController {
 	@RequestMapping("/list")
 	public String list(Model model) {
 		List<Project> projectList = this.projectService.getList();
-		model.addAttribute("projectList", projectList);
-		return "project_list";
-	}
-	
-	@RequestMapping("/list/{pCate}")
-	public String listCate(Model model, @PathVariable("pCate") String pCate) {
-		List<Project> projectList = this.projectService.getCateList(pCate);
 		model.addAttribute("projectList", projectList);
 		return "project_list";
 	}
