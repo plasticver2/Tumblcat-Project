@@ -5,12 +5,11 @@
 			<ul class="main1">
 				<li style="border: none;"><a href="#"><b style="font-size: 20px;"><span style="font-size: 20px;">≡</span> 카테고리</b></a>
 					<ul class="main2">
-						<li><a href="#">전체</a>				
-						<li><a href="#">웹툰 리소스</a></li>
-						<li><a href="#">반려동물</a></li>
-						<li><a href="#">주얼리</a></li>
-						<li><a href="#">음악</a></li>
-						</li>
+						<li><a th:href="@{/project/list}" th:text="전체"></a>				
+						<li><a th:href="|@{/project/list/웹툰리소스}|">웹툰 리소스</a></li>
+						<li><a th:href="|@{/project/list/반려동물}|">반려동물</a></li>
+						<li><a th:href="|@{/project/list/주얼리}|">주얼리</a></li>
+						<li><a th:href="|@{/project/list/음악}|">음악</a></li>
 					</ul>
 				</li>
 				<li><a th:href="@{/project/list}">홈</a></li>					
