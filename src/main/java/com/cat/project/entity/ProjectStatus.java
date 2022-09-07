@@ -13,8 +13,7 @@ import lombok.Setter;
 @Setter
 @Entity
 public class ProjectStatus {
-	
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long psId;

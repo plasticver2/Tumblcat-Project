@@ -1,5 +1,28 @@
-<html layout:decorate="~{mainlayout}">
-<div layout:fragment="content" class="container">
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+    <!-- 합쳐지고 최소화된 최신 CSS --> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    
+    <!-- 부가적인 테마 --> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    
+    <!-- 합쳐지고 최소화된 최신 자바스크립트 --> 
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <script src="js/includeHTML.js"></script>
+  </head>
+</head>
+<body>
+<div id="header_part"></div>
+<div class="container">
 
 <div class="row justify-content-center mt-4">
 	 <div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
@@ -21,7 +44,7 @@
         </div>
     	<div class="row">
            <div class="col-md-9 form-group mt-3 mt-md-0">
-              <h5 style="font-weight:bold"><div th:text="kk"></div></h5>
+              <h5 style="font-weight:bold"><div>1,216개의 프로젝트가 있습니다.</div></h5>
            </div>
            <div class="col-md-3 form-group mt-3 mt-md-0" align="right">
               <select>
@@ -218,4 +241,9 @@
     
 </div>
 </div>
+<div id="footer_part"></div>
+</body>
+<script>
+  includeHTML();
+</script>
 </html>

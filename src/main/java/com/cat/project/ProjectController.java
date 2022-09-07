@@ -20,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Controller
 public class ProjectController {
+
 	private final ProjectService projectService;
 	
 	//db와 연결해주는 레퍼지토리를 가져와서 list를 조회
@@ -53,8 +54,8 @@ public class ProjectController {
         }
         // TODO 질문을 저장한다.
 		this.projectService.create(
-				projectForm.getPCate(),
 				projectForm.getPName(),
+				projectForm.getPCate(),
 				projectForm.getPDesc(), 
 				projectForm.getPGoal(),
 				projectForm.getPSdate(),
@@ -63,25 +64,5 @@ public class ProjectController {
 		);
         return "redirect:/project/list"; // 질문 저장후 질문목록으로 이동
     }
-	
-	@GetMapping("/update")
-	public String projectUpdate() {
-		return "project_update";
-	}
-	
-	@RequestMapping("/category")
-	public String category() {
-		return "category";
-	}
-	
-	@RequestMapping("/liked")
-	public String liked() {
-		return "liked";
-	}
-	
-	@RequestMapping("/notice")
-	public String notice() {
-		return "notice";
-	}
-	
+		
 }

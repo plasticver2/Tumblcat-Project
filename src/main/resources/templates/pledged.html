@@ -1,5 +1,24 @@
-<html layout:decorate="~{layout}">
-<div layout:fragment="content" class="container">
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+    <!-- 합쳐지고 최소화된 최신 CSS --> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    
+    <!-- 부가적인 테마 --> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    
+    <!-- 합쳐지고 최소화된 최신 자바스크립트 --> 
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <script src="js/includeHTML.js"></script>
+    </head>
+</head>
+<body>
+<div id="header_part"></div>
+<div class="container">
 
 <div class="row justify-content-center mt-4">
     <br>
@@ -32,7 +51,7 @@
     	
         <div class="col-lg-12" style="border:1px solid black">
 	    	<div class="col-lg-2">
-	    		<img src="/img/tumble3.png" style="margin:10px 0; width:150px; height:120px;"/>
+	    		<img src="img/tumble3.png" style="margin:10px 0; width:150px; height:120px;"/>
 	    	</div>
 			<div class="col-lg-10">
 				<div>
@@ -57,5 +76,9 @@
 </div>
 
 </div>
-</div>
+<div id="footer_part"></div>
+</body>
+<script>
+  includeHTML();
+</script>
 </html>

@@ -1,5 +1,23 @@
-<html layout:decorate="~{layout}">
-<div layout:fragment="content" class="container">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- 합쳐지고 최소화된 최신 CSS --> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    
+    <!-- 부가적인 테마 --> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    
+    <!-- 합쳐지고 최소화된 최신 자바스크립트 --> 
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" href="css/footer.css">
+    <script th:src="@{/js/includeHTML.js}"></script>
+</head>
+<body>
+<div id="header_part"></div>
+<div class="container">
 <div class="row justify-content-center mt-4">
 	<div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
                 <form class="navbar-form navbar-right" role="search">
@@ -12,19 +30,14 @@
                 </form>
       </div>
     <hr style="margin:0; padding:0">
-
+    
 	<div class="col-lg-12">
     	<div class="row">
            <div class="col-md-12 form-group mt-3 mt-md-0">
-              <h5 style="font-weight:bold">
-              	<a th:href="@{|/project/list|}" th:text="${project.pCate}"></a>
-              </h5>
+              <h5 style="font-weight:bold"><a href="category.html" th:text="${project.pCate}"></a></h5>
            </div><br>
-           <h1 style="text-align:center; font-weight:bold"
-           		th:text="${project.pName}"
-           >
-           </h1>
-
+           <h1 style="text-align:center; font-weight:bold" th:text=${project.pName}></h1>
+           
                <!-- 캐러셀 -->
 	    <div class="col-lg-8">
 	    	<div id="carousel-example-generic" class="carousel slide" style="top:10px; width:700px; height:500px">
@@ -33,16 +46,16 @@
 	                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
 	                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
 	            </ol>
-
+			
 	            <div class="carousel-inner">
 	                <div class="item active">
-	                    <img src="/img/tumble3.png" style="width:700px; height:500px" alt="f">
+	                    <img th:src="@{/img/tumble3.png}" style="width:700px; height:500px" alt="f">
 	                </div>
 	                <div class="item">
-	                    <img src="/img/tumble1.png" style="width:700px; height:500px" alt="f">
+	                    <img src="@{/img/tumble1.png}" style="width:700px; height:500px" alt="f">
 	                </div>
 	                <div class="item">
-	                    <img src="/img/tumble2.png" style="width:700px; height:500px" alt="f">
+	                    <img src="@{/img/tumble2.png}" style="width:700px; height:500px" alt="f">
 	                </div>
 	            </div>
 
@@ -63,16 +76,16 @@
 			<h4>후원자</h4>
 			<h1 style="display:inline-block">64</h1>명
 			<hr>
-			<h5 style="display:inline-block">목표금액</h5> <span th:text="${project.pGoal}"></span> <br>
-			<h5 style="display:inline-block">펀딩 기간</h5> <span th:text="${project.pSdate}"></span> ~ <span th:text="${project.pEdate}"></span> <br>
+			<h5 style="display:inline-block">목표금액</h5>	[[${project.pGoal}]] <br>
+			<h5 style="display:inline-block">펀딩 기간</h5><span th:text="|${project.pSdate}~${project.pEdate}"></span>
 			<div style="display:inline-block; border:1px solid black">5일 남음</div><br>
 			<h5 style="display:inline-block">결제</h5>	목표금액 달성시 2022.09.08에 결제 진행<br>
-			<a th:href="@{/project/list}" class="btn btn-default">♡</a> &nbsp;&nbsp;
-			<a th:href="@{/project/list}" class="btn btn-default">이 프로젝트 후원하기</a>
+			<button type="submit" class="btn btn-default">♡</button> &nbsp;&nbsp;
+			<button type="submit" class="btn btn-default">이 프로젝트 후원하기</button>
 	   </div>
     </div>
     <br>
-
+    
     <div class="col-lg-12">
     	<div class="row">
     		<div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -85,7 +98,7 @@
 		                    </li>
 		                </ul>
 		    </div>
-
+		    
 		    <div class="col-lg-8">
 	    		<div class="collapse navbar-collapse navbar-ex1-collapse">
 	                <ul class="nav navbar-nav d-flex flex-row">
@@ -106,24 +119,18 @@
 	                    </li>
 	                </ul>
 	    		</div>
-
+	    		
 	    		<h4>| 프로젝트 소개</h4><br>
-	    		<div th:text="${project.pDesc}">
+	    		<div style="text-align:center">
+	    			 [[${project.pDesc}]]
 	    		</div>
-
+				
 				<hr>
-
+				
 				<h4>| 프로젝트 예산</h4><br>
-				목표 금액은 아래의 지출 항목으로 사용할 예정입니다.
-				<ul>
-					<li>인건비 - 10만원</li>
-					<li>배송비-   5만원</li>
-					<li>재료비-  25만원</li>
-					<li>패키징 재료비- 10만원</li>
-				</ul>
-
+					[[${project.pGoal}]]
 				<hr>
-
+				
 				<h4>| 프로젝트 일정</h4><br>
 				<ul>
 					<li>7월 3일: 디자인, 모델링 및 시제품 제작</li>
@@ -133,15 +140,15 @@
 					<li>9월 14일: 후가공 처리 및 포장 작업</li>
 					<li>9월 14-19일: 제품 예상 전달일</li>
 				</ul>
-
+				
 				<hr>
-
+				
 				<h4>| 프로젝트 팀 소개</h4><br>
-				<div style="text-align:center" th:text="${project.pCreator}">
+				<div style="text-align:center">
 				</div>
-
+				
 				<hr>
-
+				
 				<h4>| 선물 설명</h4><br>
 				<div style="text-align:center">
 					<h3>달 반지 세트-얼리버드 (20개 한정)</h3>
@@ -159,7 +166,7 @@
 					<br><br><br><br>
 				</div>
 	    	</div>
-
+	    	
 	    	<!-- side -->
 	    	<div class="col-lg-4">
 	    		<div style="border:1px solid black">
@@ -171,14 +178,11 @@
 	    		</div>
 	    		<br>
 	    		<h5>선물선택</h5>
-	    		<a th:href="@{/project/invest}">
-	    			<div style="border:1px solid black">
-	    				<h2>1000+</h2>
-						<h5>선물 없이 후원하기</h5>
-	    			</div>
-	    		</a><br>
-	    		<a th:href="@{/project/list}">
-	    			<div style="border:1px solid black">
+	    		<div style="border:1px solid black">
+					<h2>1000+</h2>
+					<h5>선물 없이 후원하기</h5>
+	    		</div><br>
+	    		<div style="border:1px solid black">
 	    			<h5>v 15명이 선택</h5>
 					<h2>45,000+</h2>
 					<h5>달 반지- 얼리버드 세트</h5>
@@ -189,10 +193,8 @@
 						<li>무료 배송 ( x 1 )</li>
 						<li>유광 무광 ( x 1 )</li>
 					</ul>
-	    		</div>
-	    		</a><br>
-	    		<a th:href="@{/project/list}">
-	    			<div style="border:1px solid black">
+	    		</div><br>
+	    		<div style="border:1px solid black">
 	    			<h5>v 8명이 선택</h5>
 					<h2>89,000+</h2>
 					<h5>달 반지, 별 반지 커플세트-얼리버드</h5>
@@ -205,13 +207,16 @@
 						<li>유광 무광 ( x 2 )</li>
 					</ul>
 	    		</div>
-	    		</a>
 	    	</div>
-
+	    	
     	</div>
     </div>
-
+    
 </div>
 </div>
-</div>
+<div id="footer_part"></div>
+</body>
+<script>
+  includeHTML();
+</script>
 </html>

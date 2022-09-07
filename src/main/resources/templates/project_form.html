@@ -1,5 +1,11 @@
-<html layout:decorate="~{layout}">
-<div layout:fragment="content">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
     <h1>프로젝트 만들기</h1>
     <form  th:action="@{/project/create}" th:object="${projectForm}" method="post">
         <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
@@ -45,7 +51,7 @@
                 종료일 <input name="pEdate" type="date">
             </div>
         </div>
-
+        
         <div>
             창작자 소개
             <textarea name="pCreator" id="" cols="30" rows="5"></textarea>
@@ -55,5 +61,5 @@
             <button type="submit">제출</button>
         </div>
     </form>
-</div>
+</body>
 </html>

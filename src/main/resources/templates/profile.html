@@ -1,5 +1,16 @@
-<html layout:decorate="~{layout}">
-	<div layout:fragment="content" id="wrapper">
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="css/profile.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="css/footer.css">
+<script src="js/includeHTML.js"></script>
+</head>
+<body>
+	<div id="header_part"></div>
+	<div id="wrapper">
 		<hr>
 		
 		<!-- main section -->
@@ -16,7 +27,7 @@
 						</tr>
 					</table>
 					<br>
-					<img src="/img/cat.jpg">
+					<img src="img/cat.jpg">
 				</div>
 				<div class="line">
 					<table>
@@ -45,4 +56,9 @@
 			</div>
 		</main>
 	</div>
+	<div id="footer_part"></div>
+</body>
+<script>
+  includeHTML();
+</script>
 </html>

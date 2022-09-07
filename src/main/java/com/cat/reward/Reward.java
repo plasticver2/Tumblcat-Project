@@ -19,11 +19,10 @@ import lombok.Setter;
 @Setter
 @Entity
 public class Reward {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long rwId;
-	
 	
 	@ManyToOne
 	@JoinColumn(nullable = false, name = "project", referencedColumnName = "pId")
@@ -40,6 +39,4 @@ public class Reward {
 	
 	@Column(nullable = false, columnDefinition = "TEXT") 
 	private String rwDesc;
-	
-	
 }

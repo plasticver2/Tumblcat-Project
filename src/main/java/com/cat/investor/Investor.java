@@ -14,7 +14,7 @@ import javax.persistence.OneToOne;
 
 import org.springframework.data.annotation.CreatedDate;
 
-import com.cat.account.entity.Account;
+import com.cat.account.Account;
 import com.cat.project.entity.Project;
 import com.cat.reward.Reward;
 
@@ -25,7 +25,7 @@ import lombok.Setter;
 @Setter
 @Entity
 public class Investor {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long inId;
@@ -56,6 +56,4 @@ public class Investor {
 	
 	@Column(nullable = false, length = 64)
 	private String inPay;
-	
-	
 }

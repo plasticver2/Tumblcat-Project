@@ -1,5 +1,18 @@
-<html layout:decorate="~{layout}">
-	<div layout:fragment="content" class="notice">
+<link href="css/notice.css" rel="stylesheet" type="text/css" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <script src="js/includeHTML.js"></script>
+</head>
+<body>
+	<div id="header_part"></div>
+	<div class="notice">
 		<ul class="no1">
 			<li><b><a href="#">알림</a></b></li>	
 		</ul>
@@ -28,4 +41,9 @@
 			</ul>
 		  </div>				
 </div>
+<div id="footer_part"></div>
+</body>
+<script>
+  includeHTML();
+</script>
 </html>

@@ -1,20 +1,13 @@
 package com.cat;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class MainController {
 
-    @RequestMapping("/sbb")
-    @ResponseBody
-    public String index() {
-        return "안녕하세요 sbb에 오신것을 환영합니다.";
-    }
-
-    @RequestMapping("/")
-    public String root() {
-        return "redirect:/project/list";
-    }
+	@GetMapping("/")
+	public String index() {
+		return "index";
+	}
 }
