@@ -92,4 +92,9 @@ public class ProjectController {
 		return "notice";
 	}
 	
+	@RequestMapping("/invest")
+	public String investor() {
+		return "project_invest";
+	}
+	
 }

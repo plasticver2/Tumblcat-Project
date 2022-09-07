@@ -8,8 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
-import org.hibernate.annotations.ColumnDefault;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,18 +20,17 @@ public class Account {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long aId;
 	
-	@Column(nullable = false, columnDefinition = "TEXT")
+	@Column(nullable = false, length = 20)
 	private String aPw;
 	
 	@Column(nullable = false, length = 64)
 	private String aEmail;
 	
 	@OneToOne
-	@ColumnDefault("2")
 	@JoinColumn(name = "arId", referencedColumnName = "arId")
 	private AccountRole accountRole;
 	
-	@Column(nullable = false, unique = true, columnDefinition = "TEXT")
+	@Column(nullable = false, length = 20)
 	private String aName;
 	
 	
