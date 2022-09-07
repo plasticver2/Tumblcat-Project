@@ -19,7 +19,7 @@
     	      <h5 style="font-weight:bold" th:text="__${pCate}__ == '웹툰리소스' ? '웹툰 리소스' : __${pCate}__"></h5>
     	   </div>
            <div class="col-md-9 form-group mt-3 mt-md-0">
-              <h5 style="font-weight:bold"><div>1,216개의 프로젝트가 있습니다.</div></h5>
+              <h5 style="font-weight:bold;" th:text="|${#lists.size(projectList)}개의 프로젝트가 있습니다.|"></h5>
            </div>
            <div class="col-md-3 form-group mt-3 mt-md-0" align="right">
               <select>
@@ -68,14 +68,15 @@
 	            <h4 style="font-weight:bold" th:text="${project.pName}"></h4>
 	            <h5>1,787명이 알림신청 중</h5>
 	            <br>
-        		
-           		</div>
-           		</a>
+        
+        	
+           </div>
+           </a>
         </div>
     </div>
 
 </div>
 
-</div>
+
 </div>
 </html>
