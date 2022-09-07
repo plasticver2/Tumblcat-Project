@@ -12,5 +12,4 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 
 	@Query("select p from Project p where p_cate = :pCate")
 	List<Project> findAllByCate(@Param("pCate") String pCate);
-
 }

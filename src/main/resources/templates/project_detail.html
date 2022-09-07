@@ -1,4 +1,4 @@
-<html layout:decorate="~{layout}">
+<html layout:decorate="~{layout}" xmlns:th="http://www.thymeleaf.org">
 <div layout:fragment="content" class="container">
 <div class="row justify-content-center mt-4">
 	<div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
@@ -81,7 +81,7 @@
 		                        <a href="project_detail.html">프로젝트 계획</a>
 		                    </li>
 		                    <li>
-		                        <a href="project_update.html">업데이트</a>
+		                        <a th:href="@{|/project/update/${project.pId}|}">업데이트</a>
 		                    </li>
 		                </ul>
 		    </div>
