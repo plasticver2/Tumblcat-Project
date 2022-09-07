@@ -32,6 +32,13 @@ public class ProjectController {
 		return "project_list";
 	}
 	
+	@RequestMapping("/list/{pCate}")
+	public String listCate(Model model, @PathVariable("pCate") String pCate) {
+		List<Project> projectList = this.projectService.getCateList(pCate);
+		model.addAttribute("projectList", projectList);
+		return "project_list";
+	}
+	
 	@RequestMapping(value = "/detail/{pId}")
 	public String detail(Model model, @PathVariable("pId") Long pId) {
 		Project project = this.projectService.getProject(pId);
