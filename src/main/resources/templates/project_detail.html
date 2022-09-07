@@ -1,4 +1,4 @@
-<html layout:decorate="~{layout}">
+<html layout:decorate="~{layout}" xmlns:th="http://www.thymeleaf.org">
 <div layout:fragment="content" class="container">
 <div class="row justify-content-center mt-4">
 	<div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
@@ -17,7 +17,7 @@
     	<div class="row">
            <div class="col-md-12 form-group mt-3 mt-md-0">
               <h5 style="font-weight:bold">
-              	<a th:href="@{|/project/list|}" th:text="${project.pCate}"></a>
+              	<a th:href="@{|/project/list|}" class="col-md-3" th:text="${project.pCate}== '웹툰리소스' ? '웹툰 리소스' : ${project.pCate}"></a>
               </h5>
            </div><br>
            <h1 style="text-align:center; font-weight:bold"
@@ -81,7 +81,7 @@
 		                        <a href="project_detail.html">프로젝트 계획</a>
 		                    </li>
 		                    <li>
-		                        <a href="project_update.html">업데이트</a>
+		                        <a th:href="@{|/project/update/${project.pId}|}">업데이트</a>
 		                    </li>
 		                </ul>
 		    </div>
