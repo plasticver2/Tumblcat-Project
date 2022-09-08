@@ -3,6 +3,7 @@ package com.cat.account;
 import javax.validation.Valid;
 
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -73,7 +74,9 @@ public class AccountController {
 		return "findpassword";
 	}
 	
-	@RequestMapping("/myproject")
+	/********************마이페이지 모음********************/
+	
+	@GetMapping("/myproject")
 	public String myproject() {
 		return "myproject";
 	}

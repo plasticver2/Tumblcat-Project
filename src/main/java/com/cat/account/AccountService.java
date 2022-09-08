@@ -15,7 +15,7 @@ public class AccountService {
 	private final AccountRepository accountRepository;
 	private final PasswordEncoder passwordEncoder;
 	
-	public Account create(String aPw, String aEmail, String aName) {
+	public Account create(String aName, String aEmail, String aPw) {
 		Account account = new Account();
 		account.setAName(aName);
 		account.setAEmail(aEmail);
