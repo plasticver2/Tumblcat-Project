@@ -1,10 +1,16 @@
 package com.cat.account.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.cat.project.entity.Project;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -29,4 +35,7 @@ public class Account {
 	
 	//기본값 2: member, 1: admin은 따로 지정해야 함
 	private String aRole = "2";
+	
+	@OneToMany(mappedBy = "account", cascade = CascadeType.REMOVE)
+	private List<Project> project;
 }

@@ -6,16 +6,16 @@ $(document).ready(function(){
             var content_txt_short = content_txt.substring(0,100)+"...";
             var btn_more = $('<a href="javascript:void(0)" class="more">더보기</a>');
 
-            
+
             $(this).append(btn_more);
-            
+
             if(content_txt.length >= 100){
                 content.html(content_txt_short)
-                
+
             }else{
                 btn_more.hide()
             }
-            
+
             btn_more.click(toggle_content);
             // 아래 bind가 안 되는 이유는??
             // btn_more.bind('click',toggle_content);
