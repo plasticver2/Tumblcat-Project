@@ -3,7 +3,7 @@
 		<hr>
 		
 		<!-- main section -->
-		<main>
+		<main style="margin-left:20%;">
 			<div>
 				<h1>프로필</h1>
 				<div class="line">
@@ -15,33 +15,42 @@
 							</td>
 						</tr>
 					</table>
-					<br>
 					<img src="/img/cat.jpg">
 				</div>
+				<br><br>
+				
 				<div class="line">
 					<table>
 						<tr>
 							<th width="500">이름</th>
 							<td>
-								<input type="button" value="변경" class="change">
+								<button id="show" onclick="pf_name()">변경</button>
 							</td>
 						</tr>
 					</table>
-					<br>
-					<span>김재훈</span>
+					<form id="pf_name">
+						<textarea cols="15" rows="1"></textarea>
+					</form>
+					<p>김재훈</p>
 				</div>
+				<br><br>
+				
 				<div class="line">
 					<table>
 						<tr>
 							<th width="500">소개</th>
 							<td>
-								<input type="button" value="변경" class="change">
+								<button id="show" onclick="pf_desc()">변경</button>
 							</td>
 						</tr>
 					</table>
-					<br>
-					<span>등록된 소개가 없습니다.</span>
+					<form id="pf_desc">
+						<textarea cols="50" rows="5"></textarea>
+					</form>
+					<p>등록된 소개가 없습니다.</p>
 				</div>
+				<br><br>
+				
 			</div>
 		</main>
 	</div>

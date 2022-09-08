@@ -1,6 +1,5 @@
 package com.cat.project;
 
-import java.awt.Image;
 import java.io.IOException;
 import java.util.List;
 
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cat.project.entity.Project;
+import com.cat.project.img.Image;
 import com.cat.project.img.ImageService;
 
 import lombok.RequiredArgsConstructor;
@@ -60,17 +60,15 @@ public class ProjectController {
 	@PostMapping("/create")
     public String projectCreate(
     		@RequestPart MultipartFile file,@Valid ProjectForm projectForm, BindingResult bindingResult
-    	    ) throws IOException{
+    ) throws IOException{
 		if (bindingResult.hasErrors()) {
             return "project_form";
-		}
-		
+        }
 		String fileurl = imageService.uploadfile(file);
 		String storefile = this.imageService.storedfile(file.getOriginalFilename());
-
-		this.imageService.filesave(file.getOriginalFilename(),storefile,fileurl, projectForm.getImgDesc());
-		com.cat.project.img.Image image = this.imageService.findImgid(storefile);
 		
+		this.imageService.filesave(file.getOriginalFilename(),storefile,fileurl, projectForm.getImgDesc());
+		Image image = this.imageService.findImgid(storefile);
         // TODO 질문을 저장한다.
 		this.projectService.create(
 				projectForm.getPCate(),
