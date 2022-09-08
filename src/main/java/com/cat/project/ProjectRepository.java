@@ -13,7 +13,6 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 	@Query("select p from Project p where p_cate = :pCate")
 	List<Project> findAllByCate(@Param("pCate") String pCate);
 	
-
 	// 엔티티 기준으로 작성
 	//@Param("kw") 는 쿼리에서 :kw로 참조
     @Query("select "

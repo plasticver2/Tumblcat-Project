@@ -4,12 +4,13 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import com.cat.project.img.Image;
 
 import org.springframework.stereotype.Service;
 
 import com.cat.DataNotFoundException;
 import com.cat.project.entity.Project;
+import com.cat.reward.Reward;
+import com.cat.reward.RewardRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,13 +18,10 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class ProjectService {
 	private final ProjectRepository projectRepository;
+	private Long pId;
 	
 	public List<Project> getList(){
 		return this.projectRepository.findAll();
-	}
-	
-	public List<Project> searchkw(String kw){
-		return this.projectRepository.findAllByKeyword(kw);
 	}
 	
 	public List<Project> getCateList(String pCate){
@@ -40,8 +38,9 @@ public class ProjectService {
 	}
 	
 	public void create(String pCate, String pName, String pDesc, 
-			BigDecimal pGoal, LocalDate pSdate, LocalDate pEdate, String pCreator, Image imgId)
+			BigDecimal pGoal, LocalDate pSdate, LocalDate pEdate, String pCreator)
 	{
+		//project에 저장
 		Project p = new Project();
 		p.setPCate(pCate);
 		p.setPName(pName);
@@ -50,7 +49,12 @@ public class ProjectService {
         p.setPSdate(pSdate);
         p.setPEdate(pEdate);
         p.setPCreator(pCreator);
-        p.setImgIdR(imgId);
         this.projectRepository.save(p);
+        
+        pId = p.getPId();
+	}
+	
+	public Long getId() {
+		return pId;
 	}
 }

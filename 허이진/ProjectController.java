@@ -1,6 +1,5 @@
 package com.cat.project;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -13,11 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.cat.project.entity.Project;
-import com.cat.project.img.ImageService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,19 +22,13 @@ import lombok.RequiredArgsConstructor;
 @Controller
 public class ProjectController {
 	private final ProjectService projectService;
-	private final ImageService imageService;
 	
 	//db와 연결해주는 레퍼지토리를 가져와서 list를 조회
 	//중간에 service 클래스를 추가해서 레퍼지토리에 직접 접근할 수 없도록 막아줌
 	//model 클래스를 이용해서 가져온 list를 템플릿(html)에 전달 
 	@RequestMapping("/list")
-	public String list(Model model, @RequestParam(value = "kw", defaultValue = "") String kw) {
-		List<Project> projectList;
-		if(kw != null) {
-			projectList = this.projectService.searchkw(kw);
-		}else {
-			projectList = this.projectService.getList();
-		}
+	public String list(Model model) {
+		List<Project> projectList = this.projectService.getList();
 		model.addAttribute("projectList", projectList);
 		return "project_list";
 	}
@@ -64,18 +54,11 @@ public class ProjectController {
 	
 	@PostMapping("/create")
     public String projectCreate(
-    		@RequestPart MultipartFile file,@Valid ProjectForm projectForm, BindingResult bindingResult
-    	    ) throws IOException{
+    		@Valid ProjectForm projectForm, BindingResult bindingResult
+    ) {
 		if (bindingResult.hasErrors()) {
             return "project_form";
 		}
-		
-		String fileurl = imageService.uploadfile(file);
-		String storefile = this.imageService.storedfile(file.getOriginalFilename());
-
-		this.imageService.filesave(file.getOriginalFilename(),storefile,fileurl, projectForm.getImgDesc());
-		com.cat.project.img.Image image = this.imageService.findImgid(storefile);
-		
         // TODO 질문을 저장한다.
 		this.projectService.create(
 				projectForm.getPCate(),
@@ -84,10 +67,10 @@ public class ProjectController {
 				projectForm.getPGoal(),
 				projectForm.getPSdate(),
 				projectForm.getPEdate(),
-				projectForm.getPCreator(),
-				image
+				projectForm.getPCreator()
 		);
-		return "reward_form";
+		Long pId = this.projectService.getId();
+		return String.format("redirect:/reward/create/%s", pId);
         //return "redirect:/project/list"; // 질문 저장후 질문목록으로 이동
     }
 	
