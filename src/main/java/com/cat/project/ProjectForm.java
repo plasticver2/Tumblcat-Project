@@ -38,4 +38,7 @@ public class ProjectForm {
     
     @NotEmpty(message="창작자 소개는 필수항목입니다.")
     private String pCreator;
+    
+    @NotEmpty(message="이미지 소개는 필수항목입니다.")
+    private String ImgDesc;
 }

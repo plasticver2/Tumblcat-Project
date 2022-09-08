@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.cat.DataNotFoundException;
 import com.cat.project.entity.Project;
+import com.cat.project.img.Image;
 
 import lombok.RequiredArgsConstructor;
 
@@ -35,7 +36,7 @@ public class ProjectService {
 	}
 	
 	public void create(String pCate, String pName, String pDesc, 
-			BigDecimal pGoal, LocalDate pSdate, LocalDate pEdate, String pCreator)
+			BigDecimal pGoal, LocalDate pSdate, LocalDate pEdate, String pCreator, Image imgId)
 	{
 		Project p = new Project();
 		p.setPCate(pCate);
@@ -45,6 +46,7 @@ public class ProjectService {
         p.setPSdate(pSdate);
         p.setPEdate(pEdate);
         p.setPCreator(pCreator);
+        p.setImgIdR(imgId);
         this.projectRepository.save(p);
 	}
 }
