@@ -3,7 +3,7 @@ function findpassword() {
 };
 
 function resetpassword(){
-    var pwd = document.getElementById("a_pw"). value;
+    var pwd = document.getElementById("aPw"). value;
     var pwd_check = document.getElementById("a_pwd_check"). value;
     console.log(pwd);
     console.log(pwd_check);
@@ -29,7 +29,7 @@ function resetpassword(){
 /////////////////////////////////////////////////////////////////////////////////////////
 function pwd_check_func(){
     var pwd_check = document.getElementById('a_pwd_check').value;
-    var pwd = document.getElementById('a_pw').value;
+    var pwd = document.getElementById('aPw').value;
     var pwd_check_error = document.getElementById('pwd_check_error');
 
     if(pwd != pwd_check){
@@ -41,7 +41,7 @@ function pwd_check_func(){
 }
 function email_check_func(){
     var email_check = document.getElementById('a_email_check').value;
-    var email = document.getElementById('a_email').value;
+    var email = document.getElementById('aEmail').value;
     var email_check_error = document.getElementById('email_check_error');
 
     if(email_check == ""){
@@ -63,7 +63,7 @@ function email_check_func(){
     }
 }
 function email_func(){
-    var email = document.getElementById('a_email').value;
+    var email = document.getElementById('aEmail').value;
     var email_error = document.getElementById("email_error");
 
     if(email == ""){

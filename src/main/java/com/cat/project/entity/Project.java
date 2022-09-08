@@ -8,9 +8,14 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.JoinColumn;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import com.cat.project.img.Image;
+
 
 import lombok.Getter;
 import lombok.Setter;
@@ -67,4 +72,8 @@ public class Project {
 	
 	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
 	private List<ProjectUpdate> projectUpdateList;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="Image",referencedColumnName = "imgId")
+	private Image imgIdR;
 }

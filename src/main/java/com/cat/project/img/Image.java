@@ -14,14 +14,14 @@ public class Image {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long imgId;
-	
+
 	@Column(nullable = false, columnDefinition = "TEXT")
 	private String imgLink;
-	
+
 	@Column(nullable = false, columnDefinition = "TEXT")
 	private String imgDesc;
-	
+
 	private String imgOriName;
-	
+
 	private String imgStoredName;
 }
