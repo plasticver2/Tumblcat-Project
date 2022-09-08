@@ -63,6 +63,12 @@ public class AccountController {
 		return "redirect:/";
 	}
 	
+	
+	@RequestMapping("/loginsuccess")
+	public String loginsuccess() {
+		return "loginsuccess";
+	}
+	
 	@RequestMapping("/resetpwd")
 	public String resetpwd() {
 		return "resetpassword";

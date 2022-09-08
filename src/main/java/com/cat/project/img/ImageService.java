@@ -32,7 +32,7 @@ public class ImageService {
 
 	public String uploadfile(MultipartFile file) throws IOException{
 
-        String path = "C:\\Users\\plast\\work\\workspace-springboot\\TumblCat\\src\\main\\resources\\static\\uploadfile\\";
+        String path = "C:\\bootworkspace\\TumblCat\\src\\main\\resources\\static\\uploadfile\\";
 		//String path="C:\\uploadfile\\";
         //개인 프로젝트 안에 이미지(Image) 폴더를 만들고 그 경로로 바꿔주세요.
 
