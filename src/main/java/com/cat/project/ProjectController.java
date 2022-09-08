@@ -58,7 +58,7 @@ public class ProjectController {
     ) {
 		if (bindingResult.hasErrors()) {
             return "project_form";
-        }
+		}
         // TODO 질문을 저장한다.
 		this.projectService.create(
 				projectForm.getPCate(),
@@ -69,7 +69,8 @@ public class ProjectController {
 				projectForm.getPEdate(),
 				projectForm.getPCreator()
 		);
-        return "redirect:/project/list"; // 질문 저장후 질문목록으로 이동
+		return "reward_form";
+        //return "redirect:/project/list"; // 질문 저장후 질문목록으로 이동
     }
 	
 	@GetMapping("/update")
