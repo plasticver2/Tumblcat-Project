@@ -1,6 +1,5 @@
 package com.cat.project;
 
-import java.awt.Image;
 import java.io.IOException;
 import java.util.List;
 
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,8 +32,14 @@ public class ProjectController {
 	//중간에 service 클래스를 추가해서 레퍼지토리에 직접 접근할 수 없도록 막아줌
 	//model 클래스를 이용해서 가져온 list를 템플릿(html)에 전달 
 	@RequestMapping("/list")
-	public String list(Model model) {
-		List<Project> projectList = this.projectService.getList();
+	public String list(Model model, @RequestParam(value = "kw", defaultValue = "") String kw) {
+		List<Project> projectList;
+		if(kw != null) {
+			projectList = this.projectService.searchkw(kw);
+		}else {
+			projectList = this.projectService.getList();
+		}
+
 		model.addAttribute("projectList", projectList);
 		return "project_list";
 	}
