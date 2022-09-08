@@ -1,6 +1,5 @@
 package com.cat.project;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -12,12 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cat.project.entity.Project;
-import com.cat.project.img.Image;
-import com.cat.project.img.ImageService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,7 +22,6 @@ import lombok.RequiredArgsConstructor;
 @Controller
 public class ProjectController {
 	private final ProjectService projectService;
-	private final ImageService imageService;
 	
 	//db와 연결해주는 레퍼지토리를 가져와서 list를 조회
 	//중간에 service 클래스를 추가해서 레퍼지토리에 직접 접근할 수 없도록 막아줌
@@ -59,16 +54,11 @@ public class ProjectController {
 	
 	@PostMapping("/create")
     public String projectCreate(
-    		@RequestPart MultipartFile file,@Valid ProjectForm projectForm, BindingResult bindingResult
-    ) throws IOException{
+    		@Valid ProjectForm projectForm, BindingResult bindingResult
+    ) {
 		if (bindingResult.hasErrors()) {
             return "project_form";
-        }
-		String fileurl = imageService.uploadfile(file);
-		String storefile = this.imageService.storedfile(file.getOriginalFilename());
-		
-		this.imageService.filesave(file.getOriginalFilename(),storefile,fileurl, projectForm.getImgDesc());
-		Image image = this.imageService.findImgid(storefile);
+		}
         // TODO 질문을 저장한다.
 		this.projectService.create(
 				projectForm.getPCate(),
@@ -77,8 +67,7 @@ public class ProjectController {
 				projectForm.getPGoal(),
 				projectForm.getPSdate(),
 				projectForm.getPEdate(),
-				projectForm.getPCreator(),
-				image
+				projectForm.getPCreator()
 		);
 		return "reward_form";
         //return "redirect:/project/list"; // 질문 저장후 질문목록으로 이동

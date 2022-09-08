@@ -37,7 +37,7 @@
 
            <div th:each="project : ${projectList}" class="col-md-3 form-group mt-3 mt-md-0 center">
            	<a th:href="@{|/project/detail/${project.pId}|}">
-           <img th:src="|/uploadfile/${project.ImgIdR.imgOriName}|" width="250" height="250"/>
+           <img src="/img/tumble.png" width="250" height="250"/>
               <div class="row col-md-12">
               	<h6 class="col-md-3" th:text="${project.pCate}== '웹툰리소스' ? '웹툰 리소스' : ${project.pCate}"}></h6>|<h6 class="col-md-8" th:text="${project.pCreator}"></h6>
                 <h4 style="font-weight:bold" th:text="${project.pName}"></h4>
@@ -62,7 +62,7 @@
         
         <div th:each="project : ${projectList}" class="col-md-3 form-group mt-3 mt-md-0 center">
 	           	<a th:href="@{|/project/detail/${project.pId}|}">
-	           <img th:src="|/uploadfile/${project.ImgIdR.imgOriName}|" width="250" height="250"/>
+	           <img src="/img/tumble.png" width="250" height="250"/>
 	           <div class="row col-md-12">
               	<h6 class="col-md-3" th:text="${project.pCate}== '웹툰리소스' ? '웹툰 리소스' : ${project.pCate}"}></h6>|<h6 class="col-md-8" th:text="${project.pCreator}"></h6>
 	            <h4 style="font-weight:bold" th:text="${project.pName}"></h4>
