@@ -25,9 +25,9 @@ public class Reward {
 	private long rwId;
 	
 	
-	@ManyToOne
-	@JoinColumn(nullable = false, name = "project", referencedColumnName = "pId")
-	private Project project;
+//	@ManyToOne
+//	@JoinColumn(nullable = false, name = "project", referencedColumnName = "pId")
+//	private Project project;
 	
 	@Column(nullable = false)
 	private BigDecimal rwMin;
