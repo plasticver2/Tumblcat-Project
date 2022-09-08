@@ -69,7 +69,7 @@ public class ProjectController {
 		String storefile = this.imageService.storedfile(file.getOriginalFilename());
 
 		this.imageService.filesave(file.getOriginalFilename(),storefile,fileurl, projectForm.getImgDesc());
-		Image image = this.imageService.findImgid(storefile);
+		com.cat.project.img.Image image = this.imageService.findImgid(storefile);
 		
         // TODO 질문을 저장한다.
 		this.projectService.create(
