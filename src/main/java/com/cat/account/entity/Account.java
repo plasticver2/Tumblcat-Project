@@ -5,10 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-
-import org.hibernate.annotations.ColumnDefault;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -25,16 +21,12 @@ public class Account {
 	@Column(nullable = false, columnDefinition = "TEXT")
 	private String aPw;
 	
-	@Column(nullable = false, length = 64)
+	@Column(nullable = false, length = 64, unique = true)
 	private String aEmail;
-	
-	@OneToOne
-	@ColumnDefault("2")
-	@JoinColumn(name = "arId", referencedColumnName = "arId")
-	private AccountRole accountRole;
 	
 	@Column(nullable = false, unique = true, columnDefinition = "TEXT")
 	private String aName;
 	
-	
+	//기본값 2: member, 1: admin은 따로 지정해야 함
+	private String aRole = "2";
 }

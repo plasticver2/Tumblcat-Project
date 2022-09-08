@@ -28,10 +28,10 @@
                     <form th:action="@{/account/signup}" th:object="${accountCreateForm}" method="POST">
                     
                
-<!--                        <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
+                       <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
 							<div th:each="err : ${#fields.allErrors()}" th:text="${err}"></div>
 						</div>
--->
+
                         <span>이름</span><br>
                         <div >
                             <input type="text" id ="aName" th:field="*{aName}" class="input" placeholder="사용하실 이름을 입력해주세요"><br>
