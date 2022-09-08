@@ -22,6 +22,11 @@ public class ProjectService {
 		return this.projectRepository.findAll();
 	}
 	
+	public List<Project> searchkw(String kw){
+		return this.projectRepository.findAllByKeyword(kw);
+	}
+
+	
 	public List<Project> getCateList(String pCate){
 		return this.projectRepository.findAllByCate(pCate);
 	}
