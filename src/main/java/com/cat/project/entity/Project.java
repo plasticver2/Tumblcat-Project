@@ -64,7 +64,6 @@ public class Project {
     
 	private  LocalDate pSdate;
 	
-    
 	private  LocalDate pEdate;
 	
 	

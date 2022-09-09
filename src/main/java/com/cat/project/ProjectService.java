@@ -35,7 +35,7 @@ public class ProjectService {
 		}
 	}
 	
-	public void create(String pCate, String pName, String pDesc, 
+	public Long create(String pCate, String pName, String pDesc, 
 			BigDecimal pGoal, LocalDate pSdate, LocalDate pEdate, String pCreator, Image imgId)
 	{
 		Project p = new Project();
@@ -47,6 +47,6 @@ public class ProjectService {
         p.setPEdate(pEdate);
         p.setPCreator(pCreator);
         p.setImgIdR(imgId);
-        this.projectRepository.save(p);
+        return this.projectRepository.save(p).getPId();
 	}
 }

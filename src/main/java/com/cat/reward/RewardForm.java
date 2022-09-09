@@ -26,4 +26,6 @@ public class RewardForm {
     
     @NotNull(message="최대후원금은 필수항목입니다.")
     private BigDecimal rwMax;
+    
+    private Project project;
 }

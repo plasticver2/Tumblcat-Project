@@ -1,20 +1,24 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content">
-    <h1>{여기에 프로젝트 이름 표시} 선물 만들기</h1>
-    <form action="" method="POST" enctype="multipart/form-data">
+    <h1>선물 만들기</h1>
+    <form action="@{|/reward/create/${project.pId}|}" method="POST">
 
         <div>
             선물 이름
-            <input type="text">
+            <input name="rwName" type="text">
+        </div>
+		<div>
+            선물 설명
+            <input name="rwDesc" type="text">
         </div>
 
         <div>
             최소후원금액
-            <input type="number">
+            <input name="rwMin" type="number">
         </div>
         <div>
             최대후원금액
-            <input type="number">
+            <input name="rwMax" type="number">
         </div>
 
         <div>

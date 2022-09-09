@@ -2,12 +2,15 @@ package com.cat.project;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.cat.reward.Reward;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -41,4 +44,5 @@ public class ProjectForm {
     
     @NotEmpty(message="이미지 소개는 필수항목입니다.")
     private String ImgDesc;
+
 }

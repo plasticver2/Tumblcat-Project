@@ -1,7 +1,7 @@
 package com.cat.project;
 
-import java.awt.Image;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cat.project.entity.Project;
 import com.cat.project.img.ImageService;
+import com.cat.reward.RewardService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class ProjectController {
 	private final ProjectService projectService;
 	private final ImageService imageService;
+	private final RewardService rewardService;
 	
 	//db와 연결해주는 레퍼지토리를 가져와서 list를 조회
 	//중간에 service 클래스를 추가해서 레퍼지토리에 직접 접근할 수 없도록 막아줌
@@ -71,8 +73,7 @@ public class ProjectController {
 		this.imageService.filesave(file.getOriginalFilename(),storefile,fileurl, projectForm.getImgDesc());
 		com.cat.project.img.Image image = this.imageService.findImgid(storefile);
 		
-        // TODO 질문을 저장한다.
-		this.projectService.create(
+		Long pId = this.projectService.create(
 				projectForm.getPCate(),
 				projectForm.getPName(),
 				projectForm.getPDesc(), 
@@ -82,7 +83,8 @@ public class ProjectController {
 				projectForm.getPCreator(),
 				image
 		);
-		return "reward_form";
+		
+		return String.format("redirect:/reward/create/%s", pId);
         //return "redirect:/project/list"; // 질문 저장후 질문목록으로 이동
     }
 	
