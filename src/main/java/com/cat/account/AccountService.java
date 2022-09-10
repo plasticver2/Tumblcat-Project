@@ -1,9 +1,11 @@
 package com.cat.account;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import java.util.Optional;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.cat.DataNotFoundException;
 import com.cat.account.entity.Account;
 
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,15 @@ public class AccountService {
 		account.setAPw(passwordEncoder.encode(aPw));
 		this.accountRepository.save(account);
 		return account;
+	}
+	
+	public Account getAccount(String aEmail) {
+		Optional<Account> account = this.accountRepository.findByaEmail(aEmail);
+		if(account.isPresent()) {
+			return account.get();
+		}else {
+			throw new DataNotFoundException("account not found");
+		}
 	}
 	
 }
