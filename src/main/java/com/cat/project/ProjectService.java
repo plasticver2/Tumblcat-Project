@@ -55,4 +55,24 @@ public class ProjectService {
         p.setAccount(account);
         this.projectRepository.save(p);
 	}
+	
+	public void modify(
+			Project p, 
+			String pCate, 
+			String pName, 
+			String pDesc, 
+			BigDecimal pGoal, 
+			LocalDate pSdate, 
+			LocalDate pEdate, 
+			String pCreator) 
+	{
+		p.setPCate(pCate);
+		p.setPName(pName);
+        p.setPDesc(pDesc);
+        p.setPGoal(pGoal);
+        p.setPSdate(pSdate);
+        p.setPEdate(pEdate);
+        p.setPCreator(pCreator);
+        this.projectRepository.save(p);
+    }
 }

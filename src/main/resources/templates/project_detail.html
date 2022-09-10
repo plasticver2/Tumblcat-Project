@@ -24,6 +24,13 @@
            		th:text="${project.pName}"
            >
            </h1>
+           <div>
+            <a th:href="@{|/project/modify/${project.pId}|}"            
+               sec:authorize="isAuthenticated()"
+               th:if="${project.account != null and #authentication.getPrincipal().getUsername() == project.account.aEmail}">
+            프로젝트 수정하기
+            </a>
+           </div>
 
                <!-- 캐러셀 -->
 	    <div class="col-lg-8">
