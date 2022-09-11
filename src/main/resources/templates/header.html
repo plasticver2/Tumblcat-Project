@@ -17,7 +17,7 @@
 				<li><a th:href="@{/project/create}">프로젝트 올리기</a></li>
 				<li><a sec:authorize="isAnonymous()" th:href="@{/account/signin}">로그인</a></li>
 				<li><a sec:authorize="isAuthenticated()" th:href="@{/account/signout}">로그아웃</a></li>
-				<li><a th:href="@{/account/signup}">회원가입</a></li>
+				<li><a sec:authorize="isAnonymous()" th:href="@{/account/signup}">회원가입</a></li>
 				<li style="border: none;" sec:authorize="isAuthenticated()"><a href="#">마이페이지</a>
 					<ul class="main2">
 						<li><a th:href="@{/account/profile}">프로필</a></li>

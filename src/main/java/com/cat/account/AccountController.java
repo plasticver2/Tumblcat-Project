@@ -120,6 +120,16 @@ public class AccountController {
 		return "setting_notice_b";
 	}
 	
+	@RequestMapping("/setpaytype")
+	public String setPaytype() {
+		return "setting_paytype_a";
+	}
+	
+	@GetMapping("/setpaytype_form")
+	public String setPaytype_form() {
+		return "setting_paytype_b";
+	}
+	
 	@GetMapping("/profile")
 	public String profile() {
 		return "profile";
