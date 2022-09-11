@@ -1,6 +1,9 @@
 package com.cat.account;
 
 
+import java.util.List;
+
+
 import javax.validation.Valid;
 
 import org.springframework.dao.DataIntegrityViolationException;
@@ -15,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cat.account.entity.Account;
 
+import com.cat.project.ProjectService;
+import com.cat.project.entity.Project;
+
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -23,6 +29,7 @@ import lombok.RequiredArgsConstructor;
 public class AccountController {
 
 	private final AccountService accountService;
+	private final ProjectService projectService;
 	
 	@RequestMapping("/signin")
 	public String login() {
@@ -66,7 +73,9 @@ public class AccountController {
 		
 
 		
-		return "redirect:/project/list";
+
+		return "loginsuccess";
+
 	}
 	
 	@RequestMapping("/resetpwd")
@@ -79,8 +88,14 @@ public class AccountController {
 		return "findpassword";
 	}
 	
-	@GetMapping("/myproject")
-	public String myproject() {
+
+	/********************마이페이지 모음********************/
+	
+	@RequestMapping("/myproject/{aEmail}")
+	public String myproject(Model model, @PathVariable("aEmail") String aEmail) {
+		List<Project> myProjectList = this.accountService.getAccount(aEmail).getProject();
+		model.addAttribute("myProjectList", myProjectList);
+
 		return "myproject";
 	}
 	
@@ -114,10 +129,23 @@ public class AccountController {
 		return "setting_notice_b";
 	}
 	
+
 	@GetMapping("/profile/{email}")
 	public String profile(Model model, @PathVariable("email") String email) {
 		Account account = this.accountService.getAccount(email);
 		model.addAttribute("user", account);
+
+	@RequestMapping("/setpaytype")
+	public String setPaytype() {
+		return "setting_paytype_a";
+	}
+	
+	@GetMapping("/setpaytype_form")
+	public String setPaytype_form() {
+		return "setting_paytype_b";
+	}
+	
+
 		return "profile";
 	}
 	

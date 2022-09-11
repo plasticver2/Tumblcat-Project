@@ -35,6 +35,7 @@ public class AccountService {
 		}
 	}
 	
+
 	public void profileUpdate(String email, String param, int t) {
 		
 		Optional<Account> accountOptional = this.accountRepository.findByaEmail(email);
@@ -53,5 +54,5 @@ public class AccountService {
 
 	}
 	
-	
+
 }

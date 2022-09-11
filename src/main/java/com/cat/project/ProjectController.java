@@ -2,16 +2,24 @@ package com.cat.project;
 
 import java.io.IOException;
 import java.security.Principal;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.validation.Valid;
 
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
+
+
+import org.springframework.http.HttpStatus;
+
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.cat.account.AccountService;
 import com.cat.account.entity.Account;
@@ -129,19 +138,24 @@ public class ProjectController {
 		
 	}
 	
-	
+
+	//CREATE
+
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/create")
 	public String projectCreate(ProjectForm projectForm) {
 		return "project_form";
 	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/create")
     public String projectCreate(
+
     		@RequestPart MultipartFile file,
     		@Valid ProjectForm projectForm, 
     		BindingResult bindingResult,
     		Principal principal
+
     	    ) throws IOException{
 		if (bindingResult.hasErrors()) {
             return "project_form";
@@ -149,8 +163,11 @@ public class ProjectController {
 		
 		String fileurl = imageService.uploadfile(file);
 		String storefile = this.imageService.storedfile(file.getOriginalFilename());
-		Account account = this.accountService.getAccount(principal.getName());
+
 		
+		Account account = this.accountService.getAccount(principal.getName());
+
+
 		this.imageService.filesave(file.getOriginalFilename(),storefile,fileurl, projectForm.getImgDesc());
 		Image image = this.imageService.findImgid(storefile);
 		
@@ -165,11 +182,68 @@ public class ProjectController {
 				projectForm.getPEdate(),
 				projectForm.getPCreator(),
 				image,
+
 				account,
 				PsId
+
 		);
 		//return "reward_form";
         return "redirect:/project/list"; // 질문 저장후 질문목록으로 이동
+    }
+	
+	//MODIFY(수정UPDATE)
+	@PreAuthorize("isAuthenticated()")
+    @GetMapping("/modify/{pId}")
+    public String projectModify(ProjectForm projectForm, @PathVariable("pId") Long pId, Principal principal) {
+        Project project = this.projectService.getProject(pId);
+        if(!project.getAccount().getAEmail().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+        }
+        projectForm.setPCate(project.getPCate());
+        projectForm.setPName(project.getPName());
+        projectForm.setPDesc(project.getPDesc());
+        projectForm.setPGoal(project.getPGoal());
+        projectForm.setPSdate(project.getPSdate());
+        projectForm.setPEdate(project.getPEdate());
+        projectForm.setPCreator(project.getPCreator());
+        return "project_form";
+    }
+	
+	@PreAuthorize("isAuthenticated()")
+    @PostMapping("/modify/{pId}")
+    public String projectModify(@Valid ProjectForm projectForm, BindingResult bindingResult, 
+            Principal principal, @PathVariable("pId") Long pId) {
+        if (bindingResult.hasErrors()) {
+            return "project_form";
+        }
+
+        Project project = this.projectService.getProject(pId);
+        if (!project.getAccount().getAEmail().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+        }
+        this.projectService.modify(
+        		project,
+        		projectForm.getPCate(),
+				projectForm.getPName(),
+				projectForm.getPDesc(), 
+				projectForm.getPGoal(),
+				projectForm.getPSdate(),
+				projectForm.getPEdate(),
+				projectForm.getPCreator()
+				);
+        return String.format("redirect:/project/detail/%s", pId);
+    }
+	
+	//DELETE
+	@PreAuthorize("isAuthenticated()")
+    @GetMapping("/delete/{pId}")
+    public String questionDelete(Principal principal, @PathVariable("pId") Long pId) {
+        Project project = this.projectService.getProject(pId);
+        if (!project.getAccount().getAEmail().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
+        }
+        this.projectService.delete(project);
+        return "redirect:/";
     }
 	
 	@GetMapping("/update")

@@ -15,11 +15,32 @@
 
 	<div class="col-lg-12">
     	<div class="row">
+
     	<h5 style="text-align:center;font-weight:bold">
       		<a th:href="@{|/project/list/${project.pCate}|}" th:text="${project.pCate}"></a>
       	</h5>
        	<h1 style="text-align:center; font-weight:bold" th:text="${project.pName}"></h1>
-             <!-- 캐러셀 -->
+
+           
+           <!-- 프로젝트 수정 버튼 -->
+           <div>
+            <a th:href="@{|/project/modify/${project.pId}|}"            
+               sec:authorize="isAuthenticated()"
+               th:if="${project.account != null and #authentication.getPrincipal().getUsername() == project.account.aEmail}">
+            프로젝트 수정하기
+            </a>
+           </div>
+           
+           <!-- 프로젝트 삭제 버튼 -->
+           <a href="javascript:void(0);" th:data-uri="@{|/project/delete/${project.pId}|}"
+                sec:authorize="isAuthenticated()"
+                class="delete"
+                th:if="${project.account != null and #authentication.getPrincipal().getUsername() == project.account.aEmail}">
+           프로젝트 삭제하기
+           </a>
+
+               <!-- 캐러셀 -->
+
 	    <div class="col-lg-8">
 	    	<div id="carousel-example-generic" class="carousel slide" style="top:10px; width:700px; height:500px">
 	            <ol class="carousel-indicators">
@@ -230,4 +251,14 @@
 </div>
 </div>
 </div>
+<script layout:fragment="script" type='text/javascript'>
+const delete_elements = document.getElementsByClassName("delete");
+Array.from(delete_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        if(confirm("정말로 삭제하시겠습니까?")) {
+            location.href = this.dataset.uri;
+        };
+    });
+});
+</script>
 </html>
