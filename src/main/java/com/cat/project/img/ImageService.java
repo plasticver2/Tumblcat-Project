@@ -31,10 +31,17 @@ public class ImageService {
 
 
 	public String uploadfile(MultipartFile file) throws IOException{
+		/* 시원 */
+        //String path = "C:\\Users\\plast\\work\\workspace-springboot\\TumblCat\\src\\main\\resources\\static\\uploadfile\\";
+        
+        /* 현지 */
+        String path = "C:\\JavaProject\\STS4\\TumblCat\\src\\main\\resources\\static\\uploadfile\\";
 
-        String path = "C:\\Users\\plast\\work\\workspace-springboot\\TumblCat\\src\\main\\resources\\static\\uploadfile\\";
-		//String path="C:\\uploadfile\\";
-        //개인 프로젝트 안에 이미지(Image) 폴더를 만들고 그 경로로 바꿔주세요.
+        /* 이진 */
+        
+        /* 선영 */
+        
+        /* 재훈 */
 
         // 저장된 파일로 변경하여 이를 보여주기 위함
         String filepath = path + file.getOriginalFilename();

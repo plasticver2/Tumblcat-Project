@@ -1,14 +1,19 @@
 package com.cat.account;
 
+
 import javax.validation.Valid;
 
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.cat.account.entity.Account;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,7 +28,7 @@ public class AccountController {
 	public String login() {
 		return "login";
 	}
-	
+
 	@GetMapping("/signup")
 	public String signup(AccountCreateForm accountCreateForm) {
 		return "signup";
@@ -61,7 +66,7 @@ public class AccountController {
 		
 
 		
-		return "redirect:/";
+		return "redirect:/project/list";
 	}
 	
 	@RequestMapping("/resetpwd")
@@ -73,8 +78,6 @@ public class AccountController {
 	public String findpwd() {
 		return "findpassword";
 	}
-	
-	/********************마이페이지 모음********************/
 	
 	@GetMapping("/myproject")
 	public String myproject() {
@@ -111,8 +114,28 @@ public class AccountController {
 		return "setting_notice_b";
 	}
 	
-	@GetMapping("/profile")
-	public String profile() {
+	@GetMapping("/profile/{email}")
+	public String profile(Model model, @PathVariable("email") String email) {
+		Account account = this.accountService.getAccount(email);
+		model.addAttribute("user", account);
 		return "profile";
 	}
+	
+	@GetMapping("/profile/update/{email}")
+	public String updateprofilename(
+				@PathVariable("email") String email,
+				@RequestParam(value = "profile_name", defaultValue = "") String aName,
+				@RequestParam(value = "profile_desc", defaultValue = "") String aDesc
+			) {
+			if(aDesc.isEmpty() && !aName.isEmpty()) {
+				//이름을 바꾼다
+				this.accountService.profileUpdate(email, aName, 1);
+			}else if(aName.isEmpty() && !aDesc.isEmpty()) {
+				//설명을 바꾼다
+				this.accountService.profileUpdate(email, aDesc, 2);
+			}
+
+			return String.format("redirect:/account/profile/%s", email);
+	}
+
 }

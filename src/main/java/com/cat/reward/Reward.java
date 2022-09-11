@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.cat.project.entity.Project;
@@ -23,8 +24,13 @@ public class Reward {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long rwId;
 	
-	@ManyToOne
-	private Project project;
+	
+//	@ManyToOne
+//	@JoinColumn(nullable = false, name = "project", referencedColumnName = "pId")
+//	private Project project;
+	
+//	@ManyToOne
+//	private Project project;
 	
 	@Column(nullable = false)
 	private BigDecimal rwMin;
@@ -37,4 +43,6 @@ public class Reward {
 	
 	@Column(nullable = false, columnDefinition = "TEXT") 
 	private String rwDesc;
+	
+	
 }

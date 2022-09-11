@@ -1,6 +1,12 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content">
     <h1>내가 만든 프로젝트</h1>
+    <div sec:authorize="isAuthenticated()">
+    	<ul>
+    		<li th:each="project : ${projectList}" th:if="${project}"></li>
+    	</ul>
+
+    </div>
     <div class="box">
         프로젝트 이미지: <img src="" alt="">
         <h4>{프로젝트 제목}</h4>
