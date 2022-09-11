@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.cat.account.entity.Account;
 import com.cat.project.entity.Project;
 
 import lombok.Getter;
@@ -25,12 +26,9 @@ public class Reward {
 	private long rwId;
 	
 	
-//	@ManyToOne
-//	@JoinColumn(nullable = false, name = "project", referencedColumnName = "pId")
-//	private Project project;
-	
-//	@ManyToOne
-//	private Project project;
+	@ManyToOne
+	@JoinColumn(nullable = false, name = "project", referencedColumnName = "pId")
+	private Project project;
 	
 	@Column(nullable = false)
 	private BigDecimal rwMin;
@@ -43,6 +41,4 @@ public class Reward {
 	
 	@Column(nullable = false, columnDefinition = "TEXT") 
 	private String rwDesc;
-	
-	
 }

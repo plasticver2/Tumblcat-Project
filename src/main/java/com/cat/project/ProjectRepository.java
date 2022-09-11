@@ -3,12 +3,10 @@ package com.cat.project;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.cat.project.entity.Project;
-import com.cat.project.entity.ProjectStatus;
 
 public interface ProjectRepository extends JpaRepository<Project, Long> {
 
@@ -29,7 +27,4 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
             + "   or i1.imgDesc like %:kw% "
             )
     List<Project> findAllByKeyword(@Param("kw") String kw);
-    
-    List<Project> findAllByProjectStatus(ProjectStatus ps);
-
 }
