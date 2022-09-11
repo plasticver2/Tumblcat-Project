@@ -15,9 +15,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import com.cat.account.entity.Account;
 import com.cat.project.img.Image;
-import com.cat.reward.Reward;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -68,9 +69,9 @@ public class Project {
 	private  LocalDate pEdate;
 	
 	
-//	@OneToOne
-//	@JoinColumn(nullable = false, name = "projectStatus",referencedColumnName = "psId")
-//	private ProjectStatus projectStatus; 
+	@OneToOne
+	@JoinColumn(nullable = false, name = "projectStatus",referencedColumnName = "psId")
+	private ProjectStatus projectStatus; 
 	
 	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
 	private List<ProjectUpdate> projectUpdateList;
@@ -81,8 +82,7 @@ public class Project {
 	
 	@ManyToOne
 	private Account account;
-	
-	@OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE)
-	private List<Reward> rewardList;
-	
+
+//	@OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE)
+//	private List<Reward> rewardList;
 }

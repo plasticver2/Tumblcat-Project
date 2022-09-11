@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.cat.account.entity.Account;
 
@@ -35,7 +36,7 @@ public class AccountSecurityService implements UserDetailsService{
 		}else {
 			authorities.add(new SimpleGrantedAuthority(AccountRole.MEMBER.getValue()));
 		}
-		
+	
 		return new User(account.getAEmail(), account.getAPw(), authorities);
 	}
 }

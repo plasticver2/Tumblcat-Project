@@ -21,7 +21,7 @@
     	      <h5 style="font-weight:bold" th:text="__${pCate}__ == '웹툰리소스' ? '웹툰 리소스' : __${pCate}__"></h5>
     	   </div>
            <div class="col-md-9 form-group mt-3 mt-md-0">
-              <h5 style="font-weight:bold;" th:text="|${#lists.size(projectList)}개의 프로젝트가 있습니다.|"></h5>
+              <h5 style="font-weight:bold;" th:text="|${#lists.size(createdList)}개의 프로젝트가 있습니다.|"></h5>
            </div>
            <div class="col-md-3 form-group mt-3 mt-md-0" align="right">
               <select>
@@ -37,28 +37,6 @@
     <div class="col-lg-12">
     	<div class="row">
 
-           <div th:each="project : ${projectList}" class="col-md-3 form-group mt-3 mt-md-0 center">
-           	<a th:href="@{|/project/detail/${project.pId}|}">
-           <img th:src="|/uploadfile/${project.ImgIdR.imgOriName}|" width="250" height="250"/>
-              <div class="row col-md-12">
-              	<h6 class="col-md-3" th:text="${project.pCate}== '웹툰리소스' ? '웹툰 리소스' : ${project.pCate}"}></h6>|<h6 class="col-md-8" th:text="${project.pCreator}"></h6>
-                <h4 style="font-weight:bold" th:text="${project.pName}"></h4>
-                <div th:text="${project.pDesc}"></div>
-                <br>
-              </div>
-              <div class="row col-md-8">
-               	<h5 style="display:inline-block">22%</h5>
-                <h6 style="display:inline-block" th:text="${project.pGoal}"></h6>
-              </div>
-              <div class="col-md-4" align="right">
-                <h6 style="display:inline-block">8일 남음</h6>
-              </div>
-              <div class="col-md-11" style="background-color:red"></div>
-           	</a>
-           </div>
-
-
-        <hr>
         <h4 style="font-weight:bold">공개예정 프로젝트</h4>
         <div class="row">
         <!-- <h5 style="font-weight:bold;" th:text="|${#lists.size(createdList)}개의 프로젝트가 있습니다.|"></h5> -->
@@ -69,7 +47,6 @@
               	<h6 class="col-md-3" th:text="${create.pCate}== '웹툰리소스' ? '웹툰 리소스' : ${create.pCate}"}></h6>|<h6 class="col-md-8" th:text="${create.pCreator}"></h6>
 	            <h4 style="font-weight:bold" th:text="${create.pName}"></h4>
 	            <h4 style="font-weight:bold" th:text="|${#temporals.format(create.pSdate,'yyyy년 MM월 dd일')} 오픈예정|"></h4>
-	           	<a th:href="@{/project/list}" class="btn btn-default">알림신청하기</a>
 	            <h5>1,787명이 알림신청 중</h5>
 	            <br>        	
            		</div>

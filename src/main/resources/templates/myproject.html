@@ -1,7 +1,7 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content" sec:authorize="isAuthenticated()">
     <h1>내가 만든 프로젝트</h1>
-    
+
     <div sec:authorize="isAuthenticated()">
     	<ul th:each="project : ${myProjectList}">
     		<li>
@@ -10,6 +10,7 @@
     		<h6 th:text="${project.pDesc}"></h6>
     		</li>
     	</ul>
+
     </div>
 </div>
 </html>
