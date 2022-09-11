@@ -1,14 +1,20 @@
 package com.cat.account;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.cat.project.ProjectService;
+import com.cat.project.entity.Project;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 public class AccountController {
 
 	private final AccountService accountService;
+	private final ProjectService projectService;
 	
 	@RequestMapping("/signin")
 	public String login() {
@@ -61,7 +68,7 @@ public class AccountController {
 		
 
 		
-		return "redirect:/";
+		return "loginsuccess";
 	}
 	
 	@RequestMapping("/resetpwd")
@@ -76,8 +83,10 @@ public class AccountController {
 	
 	/********************마이페이지 모음********************/
 	
-	@GetMapping("/myproject")
-	public String myproject() {
+	@RequestMapping("/myproject/{aEmail}")
+	public String myproject(Model model, @PathVariable("aEmail") String aEmail) {
+		List<Project> myProjectList = this.accountService.getAccount(aEmail).getProject();
+		model.addAttribute("myProjectList", myProjectList);
 		return "myproject";
 	}
 	
@@ -109,6 +118,16 @@ public class AccountController {
 	@GetMapping("/setnotice_form")
 	public String setnotice_form() {
 		return "setting_notice_b";
+	}
+	
+	@RequestMapping("/setpaytype")
+	public String setPaytype() {
+		return "setting_paytype_a";
+	}
+	
+	@GetMapping("/setpaytype_form")
+	public String setPaytype_form() {
+		return "setting_paytype_b";
 	}
 	
 	@GetMapping("/profile")
