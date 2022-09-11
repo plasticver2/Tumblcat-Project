@@ -78,10 +78,10 @@
     		<div class="collapse navbar-collapse navbar-ex1-collapse">
 		                <ul class="nav navbar-nav d-flex flex-row">
 		                    <li class="active">
-		                        <a href="project_detail.html">프로젝트 계획</a>
+		                        <a href="#">프로젝트 계획</a>
 		                    </li>
 		                    <li>
-		                        <a th:href="@{|/project/update/${project.pId}|}">업데이트</a>
+		                        <a href="#">업데이트</a>
 		                    </li>
 		                </ul>
 		    </div>
@@ -92,9 +92,11 @@
         <li th:each="projectUpdate : ${project.projectUpdateList}" th:text="${projectUpdate.uText}"></li>
     </ul>
 </div>
-		    <form th:action="@{|/project/update/create/${project.pId}|}" method="post">
-			    <textarea name="uText" id="uText" rows="15"></textarea>
-			    <input type="submit" value="답변등록">
+<!-- isAuthenticated 로그인했을 경우만 보이게 -->
+<!-- th:if 로그인한 사용자와 프로젝트 계정이 같은 경우만 보이게 -->
+		    <form sec:authorize="isAuthenticated()" th:action="@{|/project/update/create/${project.pId}|}" method="post">
+			    <textarea th:if="${project.account !=null and #authentication.getPrincipal().getUsername() == project.account.aEmail}" name="uText" id="uText" rows="15"></textarea>
+			    <input th:if="${project.account !=null and #authentication.getPrincipal().getUsername() == project.account.aEmail}" type="submit" value="업데이트하기">
 			</form>
 
 		    

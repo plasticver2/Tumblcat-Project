@@ -24,6 +24,23 @@
            		th:text="${project.pName}"
            >
            </h1>
+           
+           <!-- 프로젝트 수정 버튼 -->
+           <div>
+            <a th:href="@{|/project/modify/${project.pId}|}"            
+               sec:authorize="isAuthenticated()"
+               th:if="${project.account != null and #authentication.getPrincipal().getUsername() == project.account.aEmail}">
+            프로젝트 수정하기
+            </a>
+           </div>
+           
+           <!-- 프로젝트 삭제 버튼 -->
+           <a href="javascript:void(0);" th:data-uri="@{|/project/delete/${project.pId}|}"
+                sec:authorize="isAuthenticated()"
+                class="delete"
+                th:if="${project.account != null and #authentication.getPrincipal().getUsername() == project.account.aEmail}">
+           프로젝트 삭제하기
+           </a>
 
                <!-- 캐러셀 -->
 	    <div class="col-lg-8">
@@ -78,7 +95,7 @@
     		<div class="collapse navbar-collapse navbar-ex1-collapse">
 		                <ul class="nav navbar-nav d-flex flex-row">
 		                    <li class="active">
-		                        <a href="project_detail.html">프로젝트 계획</a>
+		                        <a href="#">프로젝트 계획</a>
 		                    </li>
 		                    <li>
 		                        <a th:href="@{|/project/update/${project.pId}|}">업데이트</a>
@@ -214,4 +231,14 @@
 </div>
 </div>
 </div>
+<script layout:fragment="script" type='text/javascript'>
+const delete_elements = document.getElementsByClassName("delete");
+Array.from(delete_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        if(confirm("정말로 삭제하시겠습니까?")) {
+            location.href = this.dataset.uri;
+        };
+    });
+});
+</script>
 </html>
