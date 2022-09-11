@@ -1,7 +1,7 @@
 package com.cat.investor;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,7 +42,7 @@ public class Investor {
 	private BigDecimal inPled;
 	
 	@CreatedDate
-	private LocalDateTime inTs;
+	private LocalDate inTs;
 	
 	@OneToOne
 	@JoinColumn(nullable = false, name = "reward", referencedColumnName = "rwId")

@@ -2,24 +2,13 @@ package com.cat.project;
 
 import java.io.IOException;
 import java.security.Principal;
-
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-
 import java.util.List;
 
 import javax.validation.Valid;
 
-
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
-
-
+import org.aspectj.weaver.patterns.TypePatternQuestions.Question;
 import org.springframework.http.HttpStatus;
-
-
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,8 +24,6 @@ import org.springframework.web.server.ResponseStatusException;
 import com.cat.account.AccountService;
 import com.cat.account.entity.Account;
 import com.cat.project.entity.Project;
-import com.cat.project.entity.ProjectStatus;
-import com.cat.project.img.Image;
 import com.cat.project.img.ImageService;
 
 import lombok.RequiredArgsConstructor;
@@ -53,94 +40,33 @@ public class ProjectController {
 	//중간에 service 클래스를 추가해서 레퍼지토리에 직접 접근할 수 없도록 막아줌
 	//model 클래스를 이용해서 가져온 list를 템플릿(html)에 전달 
 	@RequestMapping("/list")
-	public String list(Model model,@AuthenticationPrincipal User user,@RequestParam(value = "kw", defaultValue = "") String kw) {
+	public String list(Model model, @RequestParam(value = "kw", defaultValue = "") String kw) {
 		List<Project> projectList;
 		if(kw != null) {
-			projectList= this.projectService.searchkw(kw);
+			projectList = this.projectService.searchkw(kw);
 		}else {
 			projectList = this.projectService.getList();
 		}
-		
-    	if(user == null) {
-        	model.addAttribute("user", "로그인");
-    	}else {
-        	Account a = this.accountService.getAccount(user.getUsername());
-        	model.addAttribute("user", a);
-    	}
-		
-		ArrayList<Project> list = this.projectService.comparedDate(projectList);
-		List<Project> createdList = this.projectService.createdList(projectList);
-    	 
-		model.addAttribute("projectList", list);
-		model.addAttribute("createdList", createdList);
+
+		model.addAttribute("projectList", projectList);
 		return "project_list";
 	}
-	
 	
 	@RequestMapping("/list/{pCate}")
 	public String listCate(Model model, @PathVariable("pCate") String pCate) {
 		List<Project> projectList = this.projectService.getCateList(pCate);
-		
-		ArrayList<Project> list = this.projectService.comparedDate(projectList);
-		List<Project> createdList = this.projectService.createdList(projectList);
-    	 
-		model.addAttribute("projectList", list);
-		model.addAttribute("createdList", createdList);
+		model.addAttribute("projectList", projectList);
 		return "project_list";
 	}
 	
-	@RequestMapping("/prelaunching")
-	public String prelaunching(Model model,@AuthenticationPrincipal User user,@RequestParam(value = "kw", defaultValue = "") String kw) {
-		List<Project> projectList;
-		if(!kw.isEmpty()) {
-			projectList= this.projectService.searchkw(kw);
-		}else {
-			projectList = this.projectService.getList();
-		}
-		
-    	if(user == null) {
-        	model.addAttribute("user", "로그인");
-    	}else {
-        	Account a = this.accountService.getAccount(user.getUsername());
-        	model.addAttribute("user", a);
-    	}
-
-		List<Project> createdList = this.projectService.createdList(projectList);
-
-		model.addAttribute("createdList", createdList);
-		return "project_prelaunch";
-	}
-	
 	@RequestMapping(value = "/detail/{pId}")
-	public String detail(Model model, @PathVariable("pId") Long pId,@RequestParam(value = "ref", defaultValue = "") String ref) {
-		LocalDate now = LocalDate.now();
-		
+	public String detail(Model model, @PathVariable("pId") Long pId) {
 		Project project = this.projectService.getProject(pId);
-		
-		Long start = project.getPSdate().until(now, ChronoUnit.DAYS);
-		Long end = now.until(project.getPEdate(), ChronoUnit.DAYS);
-		LocalDate payDate = project.getPEdate().plusDays(1);
-		
 		model.addAttribute("project", project);
-		
-		if(!ref.isEmpty()) {
-			model.addAttribute("start", start);
-			
-			return "project_prelaunch_detail";
-		}else {
-			model.addAttribute("end",end);
-			model.addAttribute("payDate",payDate);
-			
-			return "project_detail";
-		}
-		
-
-		
+		return "project_detail";
 	}
 	
-
 	//CREATE
-
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/create")
 	public String projectCreate(ProjectForm projectForm) {
@@ -150,12 +76,7 @@ public class ProjectController {
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/create")
     public String projectCreate(
-
-    		@RequestPart MultipartFile file,
-    		@Valid ProjectForm projectForm, 
-    		BindingResult bindingResult,
-    		Principal principal
-
+    		@RequestPart MultipartFile file,@Valid ProjectForm projectForm, BindingResult bindingResult, Principal principal
     	    ) throws IOException{
 		if (bindingResult.hasErrors()) {
             return "project_form";
@@ -163,15 +84,12 @@ public class ProjectController {
 		
 		String fileurl = imageService.uploadfile(file);
 		String storefile = this.imageService.storedfile(file.getOriginalFilename());
-
 		
 		Account account = this.accountService.getAccount(principal.getName());
 
-
 		this.imageService.filesave(file.getOriginalFilename(),storefile,fileurl, projectForm.getImgDesc());
-		Image image = this.imageService.findImgid(storefile);
+		com.cat.project.img.Image image = this.imageService.findImgid(storefile);
 		
-		ProjectStatus PsId =this.projectService.findPsId("created");
         // TODO 질문을 저장한다.
 		this.projectService.create(
 				projectForm.getPCate(),
@@ -182,13 +100,10 @@ public class ProjectController {
 				projectForm.getPEdate(),
 				projectForm.getPCreator(),
 				image,
-
-				account,
-				PsId
-
+				account
 		);
-		//return "reward_form";
-        return "redirect:/project/list"; // 질문 저장후 질문목록으로 이동
+		return "reward_form";
+        //return "redirect:/project/list"; // 질문 저장후 질문목록으로 이동
     }
 	
 	//MODIFY(수정UPDATE)

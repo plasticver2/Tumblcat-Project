@@ -36,9 +36,6 @@ public class Account {
 	//기본값 2: member, 1: admin은 따로 지정해야 함
 	private String aRole = "2";
 	
-	@Column(columnDefinition = "TEXT")
-	private String aDesc;
-	
-//	@OneToMany(mappedBy = "account", cascade = CascadeType.REMOVE)
-//	private List<Project> project;
+	@OneToMany(mappedBy = "account", cascade = CascadeType.REMOVE)
+	private List<Project> project;
 }
