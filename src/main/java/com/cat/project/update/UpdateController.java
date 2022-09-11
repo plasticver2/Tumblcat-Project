@@ -1,7 +1,6 @@
 package com.cat.project.update;
 
-import java.time.LocalDateTime;
-
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +28,7 @@ public class UpdateController {
 		return "project_update";
 	}
 
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/create/{pId}")
 	public String createUpdate(Model model, @PathVariable("pId") Long pId, @RequestParam String uText) {
 		Project project = this.projectService.getProject(pId);

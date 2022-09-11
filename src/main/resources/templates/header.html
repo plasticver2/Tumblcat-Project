@@ -13,20 +13,30 @@
 					</ul>
 				</li>
 				<li><a th:href="@{/project/list}">홈</a></li>					
-				<li><a href="#">공개예정</a></li>
+				<li><a th:href="@{/project/prelaunching}">공개예정</a></li>
 				<li><a th:href="@{/project/create}">프로젝트 올리기</a></li>
 				<li><a sec:authorize="isAnonymous()" th:href="@{/account/signin}">로그인</a></li>
-				<li><a sec:authorize="isAuthenticated()" th:href="@{/account/signout}">로그아웃</a></li>
-				<li><a th:href="@{/account/signup}">회원가입</a></li>
-				<li style="border: none;"><a href="#">마이페이지</a>
+
+				<li><div sec:authorize="isAuthenticated()" th:text="|${#authentication.getPrincipal().getUsername()}님 환영합니다|"></div></li>
+
+
+
+
+				<li><a sec:authorize="isAnonymous()" th:href="@{/account/signup}">회원가입</a></li>
+
+
+					
+				
+				<!-- 로그인 된 상태 -->
+				<li sec:authorize="isAuthenticated()" style="border: none;"><a href="#">마이페이지</a>
 					<ul class="main2">
-						<li><a th:href="@{/account/profile}">프로필</a></li>
+						<li><a th:href="@{|/account/profile/${#authentication.getPrincipal().getUsername()}|}">프로필</a></li>
 						<li><a th:href="@{/invest/pledged}">후원현황</a></li>
 						<li><a th:href="@{/project/liked}">관심프로젝트</a></li>
 						<li><a th:href="@{/project/notice}">알림</a></li>
-						<li><a th:href="@{/account/myproject}">내가만든프로젝트</a></li>
+						<li><a th:href="@{|/account/myproject/${#authentication.getPrincipal().getUsername()}|}">내가만든프로젝트</a></li>
 						<li><a th:href="@{/account/setaccount}">설정</a></li>
-						<li><a href="#">로그아웃</a></li>	
+						<li><a th:href="@{/account/signout}">로그아웃</a></li>	
 					</ul>
 				</li>
 			</ul>

@@ -18,29 +18,48 @@
 					<br>
 					<img src="/img/cat.jpg">
 				</div>
+				<br>
 				<div class="line">
 					<table>
 						<tr>
 							<th width="500">이름</th>
 							<td>
-								<input type="button" value="변경" class="change">
+								<input type="button" value="변경" class="change" id="name-change">
 							</td>
 						</tr>
 					</table>
 					<br>
-					<span>김재훈</span>
+					<span id="profile_ori_name" th:text="${user.aName}"></span>
+					<span id="profile_cha_name" style="display: none;">
+						<form th:action="@{|/account/profile/update/${user.aEmail}|}" method="get">
+							<input type="text" name="profile_name"  th:value="${user.aName}">
+							<input type="submit" value="저장">
+						</form>
+					</span>
 				</div>
 				<div class="line">
 					<table>
 						<tr>
 							<th width="500">소개</th>
 							<td>
-								<input type="button" value="변경" class="change">
+								<input type="button" value="변경" class="change" id="desc-change">
 							</td>
+						</tr>
+						<tr>
+						
 						</tr>
 					</table>
 					<br>
-					<span>등록된 소개가 없습니다.</span>
+					<div id="profile_ori_desc">
+						<span th:if="${#strings.isEmpty(user.aDesc)}">등록된 소개가 없습니다.</span>
+						<span th:if="${not #strings.isEmpty(user.aDesc)}" th:text="${user.aDesc}"></span>
+					</div>
+					<span id="profile_cha_desc" style="display: none;">
+						<form th:action="@{|/account/profile/update/${user.aEmail}|}" method="get">
+							<input type="text" name="profile_desc"  th:value="${user.aDesc}">
+							<input type="submit" value="저장">
+						</form>
+					</span>
 				</div>
 			</div>
 		</main>
