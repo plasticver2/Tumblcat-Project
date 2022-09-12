@@ -165,22 +165,22 @@
 							<h5 th:text="${reward.rwDesc}"></h5>
 			    		</div>
 			    	</a>
-			    	<form th:action="@{|/project/reward/delete/${reward.rwId}|}" method="post">
-			    		<input  type="submit" value="삭제">
+			    	<form sec:authorize="isAuthenticated()" th:action="@{|/project/reward/delete/${reward.rwId}|}" method="post">
+			    		<input th:if="${project.account !=null and #authentication.getPrincipal().getUsername() == project.account.aEmail}" type="submit" value="삭제">
 			    	</form>
 			    	<br>
 		    	</li>
 	    		
-	    		<div class="col-lg-12" style="border:1px solid black; padding:12px;">
-		    		<form sec:authorize="isAuthenticated()" th:action="@{|/project/reward/create/${project.pId}|}" method="post">
+	    		<form sec:authorize="isAuthenticated()" th:action="@{|/project/reward/create/${project.pId}|}" method="post">
+	    			<div th:if="${project.account !=null and #authentication.getPrincipal().getUsername() == project.account.aEmail}" class="col-lg-12" style="border:1px solid black; padding:12px;">
 		    			선물 이름 <input th:if="${project.account !=null and #authentication.getPrincipal().getUsername() == project.account.aEmail}" type="text" name="rwName" id="rwName"> <br>
 		    			최소후원금액 <input th:if="${project.account !=null and #authentication.getPrincipal().getUsername() == project.account.aEmail}" type="number" name="rwMin" id="rwMin"> <br>
 		    			최대후원금액 <input th:if="${project.account !=null and #authentication.getPrincipal().getUsername() == project.account.aEmail}" type="number" name="rwMax" id="rwMax"> <br>
 		    			선물 소개
 					    <textarea th:if="${project.account !=null and #authentication.getPrincipal().getUsername() == project.account.aEmail}" name="rwDesc" id="rwDesc" cols="60" rows="5"></textarea>
 					    <input th:if="${project.account !=null and #authentication.getPrincipal().getUsername() == project.account.aEmail}" type="submit" value="답변등록">
-					</form>
-	    		</div>
+	    			</div>
+	    		</form>
 	    		
 	    		<br>
 	    	</div>
