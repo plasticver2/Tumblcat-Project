@@ -1,0 +1,32 @@
+#footer_part {
+  position : relative;
+  transform : translateY(100%);
+}
+
+#footer_part p {
+     padding: 20px;
+}
+        
+#footer_part ul{
+     float: left;
+     margin-right: 5px;
+}
+
+#footer_part a {
+	text-decoration-line: none;
+	color: black;
+}
+
+#footer_part hr {
+	 background-color : red;
+}
+
+
+#footer_part .fo3{
+		clear: both;
+}	
+#footer_part .fo4{		
+            clear: both;
+            background-color: red;
+            color: white;
+}
