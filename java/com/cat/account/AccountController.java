@@ -1,10 +1,15 @@
 package com.cat.account;
 
+import java.security.Principal;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -154,6 +159,25 @@ public class AccountController {
 			}
 
 			return String.format("redirect:/account/profile/%s", email);
+	}
+	
+	@PreAuthorize("isAuthenticated()")
+	@RequestMapping("/notice")
+	public String notice(Principal principal,Model model) {
+		Account account = this.accountService.getAccount(principal.getName());
+		Set<Project> project = account.getNotifyRequest();
+		List<Project> projectList = new ArrayList<Project>();
+		
+		for(Project p : project) {
+			if(p.getPSdate().isEqual(LocalDate.now())){
+				projectList.add(p);
+				this.projectService.removeNotify(p, account);
+			}
+		}
+		
+		model.addAttribute("project", projectList);
+		
+		return "notice";
 	}
 	
 	//회원탈퇴

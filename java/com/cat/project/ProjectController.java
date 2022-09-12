@@ -240,6 +240,17 @@ public class ProjectController {
         return String.format("redirect:/project/detail/%s", pId);
     }
 	
+	//알림설정
+	@PreAuthorize("isAuthenticated()")
+    @GetMapping("/notification/request/{pId}")
+    public String projectNotifyRequest(Principal principal, @PathVariable("pId") Long pId) {
+        Project project = this.projectService.getProject(pId);
+        Account account = this.accountService.getAccount(principal.getName());
+        this.projectService.notifyRequest(project, account);
+        
+        return String.format("redirect:/project/detail/%s?ref=prelaunch", pId);
+    }
+	
 	@RequestMapping("/category")
 	public String category() {
 		return "category";
@@ -250,9 +261,5 @@ public class ProjectController {
 		return "liked";
 	}
 	
-	@RequestMapping("/notice")
-	public String notice() {
-		return "notice";
-	}
 	
 }

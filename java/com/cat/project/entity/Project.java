@@ -62,6 +62,9 @@ public class Project {
     @ManyToMany
     Set<Account> liker;
     
+    @ManyToMany
+    Set<Account> notifyRequest;
+    
 	private  LocalDate pSdate;
 	
 	private  LocalDate pEdate;

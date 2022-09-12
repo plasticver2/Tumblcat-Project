@@ -33,10 +33,10 @@ public class ImageService {
 	public String uploadfile(MultipartFile file) throws IOException{
 
 		/* 시원 */
-        String path = "C:\\Users\\plast\\work\\workspace-springboot\\TumblCat\\src\\main\\resources\\static\\uploadfile\\";
+        //String path = "C:\\Users\\plast\\work\\workspace-springboot\\TumblCat\\src\\main\\resources\\static\\uploadfile\\";
         
         /* 현지 */
-        //String path = "C:\\JavaProject\\STS4\\TumblCat\\src\\main\\resources\\static\\uploadfile\\";
+        String path = "C:\\JavaProject\\STS4\\TumblCat\\src\\main\\resources\\static\\uploadfile\\";
 
         /* 이진 */
         
