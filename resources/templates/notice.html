@@ -1,0 +1,19 @@
+<html layout:decorate="~{layout}">
+	<div layout:fragment="content" class="notice">
+		<ul class="no1">
+			<li><b><a href="#">알림</a></b></li>	
+		</ul>
+		<div class="no2">
+			<hr>
+		</div>	
+		<div class="no3" th:each="project : ${project}">
+		<span onclick="this.parentElement.style.display='none'" class="close">X</span>
+			<ul>
+				<a th:href="@{|/project/detail/${project.pId}|}">
+					<img th:src="|/uploadfile/${project.ImgIdR.imgOriName}|" style="width:100px; height:100px;"/ >
+					알림신청하신 <b>[[${project.pName}]]</b> 프로젝트가 공개 되었습니다. 
+				</a>	
+			</ul>
+		 </div>				
+</div>
+</html>
