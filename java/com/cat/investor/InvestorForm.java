@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class InvestorForm {
-	@NotNull(message="연락처는 필수항목입니다.")
+	@NotEmpty(message="연락처는 필수항목입니다.")
     @Size(max=200)
     private String inPhone;
     
