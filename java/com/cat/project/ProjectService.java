@@ -9,6 +9,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.cat.DataNotFoundException;
+import com.cat.account.AccountRepository;
 import com.cat.account.entity.Account;
 import com.cat.project.entity.Project;
 import com.cat.project.entity.ProjectStatus;
@@ -21,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class ProjectService {
 	private final ProjectRepository projectRepository;
 	private final ProjectStatusRepository statusRepository;
+	private final AccountRepository accountRepository;
 	
 	public ProjectStatus findPsId(String fname) {
 		ProjectStatus psId = this.statusRepository.findByPsName(fname);
@@ -135,5 +137,19 @@ public class ProjectService {
 	public void like(Project project, Account account) {
 		project.getLiker().add(account);
 		this.projectRepository.save(project);
+	}
+	
+	public void notifyRequest(Project project, Account account) {
+		project.getNotifyRequest().add(account);
+		this.projectRepository.save(project);
+		account.getNotifyRequest().add(project);
+		this.accountRepository.save(account);
+	}
+	
+	public void removeNotify(Project project, Account account) {
+		project.getNotifyRequest().remove(account);
+		this.projectRepository.save(project);
+		account.getNotifyRequest().remove(project);
+		this.accountRepository.save(account);
 	}
 }
