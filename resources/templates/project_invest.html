@@ -48,7 +48,8 @@
 		</main>
 		<br />
 		
-		<form th:action="@{|/project/invest/${reward.rwId}|}" method="POST" enctype="multipart/form-data">
+		<form th:action="@{|/project/invest/${reward.rwId}|}" method="POST" enctype="multipart/form-data" th:object="${investorForm}">
+		
 		<!-- section section -->
 		<section id="s_content">
 			<span>선물 정보</span>
@@ -99,6 +100,10 @@
 						</td>
 					</tr>
 				</table>
+		
+			<div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
+		        <div th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+		    </div>
 		</section>
 		
 		<!-- aside section -->
@@ -119,6 +124,7 @@
 				<input type="submit" value="후원하기" class="submit-btn">
 			</div>
 		</aside>
+		
 		</form>
 	</div>
 </body>
