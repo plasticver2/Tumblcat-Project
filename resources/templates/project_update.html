@@ -1,0 +1,195 @@
+<html layout:decorate="~{layout}" xmlns:th="http://www.thymeleaf.org">
+<div layout:fragment="content" class="container">
+<div class="row justify-content-center mt-4">
+	<div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
+                <form class="navbar-form navbar-right"  method="get" th:action="@{|/project/list?${kw}|}">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name = "kw" placeholder="검색어를 입력해주세요.">
+                    </div>
+                    <button type="submit" class="btn btn-default"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+					  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+					</svg></button>
+                </form>
+      </div>
+    <hr style="margin:0; padding:0">
+
+	<div class="col-lg-12">
+    	<div class="row">
+           <div class="col-md-12 form-group mt-3 mt-md-0">
+              <h5 style="font-weight:bold">
+              	<a th:href="@{|/project/list/${project?.pCate}|}" th:text="${project?.pCate}=='웹툰리소스'?'웹툰 리소스':${project?.pCate}"></a>
+              </h5>
+           </div><br>
+           <h1 style="text-align:center; font-weight:bold"
+           		th:text="${project.pName}"
+           >
+           </h1>
+           
+           <!-- 프로젝트 수정 버튼 -->
+           <div>
+            <a th:href="@{|/project/modify/${project.pId}|}"            
+               sec:authorize="isAuthenticated()"
+               th:if="${project.account != null and #authentication.getPrincipal().getUsername() == project.account.aEmail}">
+            프로젝트 수정하기
+            </a>
+           </div>
+           
+           <!-- 프로젝트 삭제 버튼 -->
+           <a href="javascript:void(0);" th:data-uri="@{|/project/delete/${project.pId}|}"
+                sec:authorize="isAuthenticated()"
+                class="delete"
+                th:if="${project.account != null and #authentication.getPrincipal().getUsername() == project.account.aEmail}">
+           프로젝트 삭제하기
+           </a>
+
+               <!-- 캐러셀 -->
+	    <div class="col-lg-8">
+	    	<div id="carousel-example-generic" class="carousel slide" style="top:10px; width:700px; height:500px">
+	            <ol class="carousel-indicators">
+	                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+	                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+	                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+	            </ol>
+
+	            <div class="carousel-inner">
+	                <div class="item active">
+	                    <img th:src="|/uploadfile/${project.ImgIdR.imgOriName}|" style="width:700px; height:500px" alt="f">
+	                </div>
+	                <div class="item">
+	                    <img src="/img/tumble1.png" style="width:700px; height:500px" alt="f">
+	                </div>
+	                <div class="item">
+	                    <img src="/img/tumble2.png" style="width:700px; height:500px" alt="f">
+	                </div>
+	            </div>
+
+	            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+	                <span class="icon-prev"></span>
+	            </a>
+	            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+	                <span class="icon-next"></span>
+	            </a>
+	   		</div>
+	   </div>
+	   <div class="col-lg-4">
+           <div th:text="${project.pSdate}"></div>
+		   <h4>모인금액</h4>
+			<h1 style="display:inline-block">3,274,000</h1>원  
+			<h3 style="display:inline-block">654%</h3>
+			<h4>남은시간</h4>
+			<h1 style="display:inline-block" th:text="${end}"></h1>일
+			<h4>후원자</h4>
+			<h1 style="display:inline-block">64</h1>명
+			<hr>
+			<table>
+				<tr>
+					<td><h5 style="display:inline-block">목표 금액</h5></td>
+					<td>&nbsp;&nbsp;&nbsp;</td>
+					<td><span th:text="${project.pGoal}"></span></td>
+				</tr>
+				<tr>
+					<td><h5 style="display:inline-block">펀딩 기간</h5></td>
+					<td>&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						<span th:text="${project.pSdate}"></span> ~ <span th:text="${project.pEdate}"></span>
+						<div style="display:inline-block; border:1px solid black" th:text="|${end}일 남음|">
+					</td>
+				</tr>
+				<tr>
+					<td><h5 style="display:inline-block">결제</h5></td>
+					<td>&nbsp;&nbsp;&nbsp;</td>
+					<td><span th:text="|목표금액 달성시 ${payDate}에 결제 진행|"></span></td>
+				</tr>
+       		</table>
+			
+			<!-- 좋아요 버튼 + 개수 -->
+			<a href="javascript:void(0);" class="recommend"
+                th:data-uri="@{|/project/like/${project.pId}|}">
+                ♡
+                <span th:text="${#lists.size(project.liker)}"></span>
+            </a>
+			
+			<a th:href="@{/project/list}" class="btn btn-default">♡</a> &nbsp;&nbsp;
+			<a th:href="@{/project/list}" class="btn btn-default">이 프로젝트 후원하기</a>
+	   </div>
+    </div>
+    <br><hr>
+
+    <div class="col-lg-12">
+    	<div class="row">
+    		<div class="col-lg-8">
+    		<div class="collapse navbar-collapse navbar-ex1-collapse">
+		                <ul class="nav navbar-nav d-flex flex-row">
+		                    <li class="active">
+		                        <a th:href="@{|/project/detail/${project.pId}|}">프로젝트 계획</a>
+		                    </li>
+		                    <li>
+		                        <a href="#">업데이트</a>
+		                    </li>
+		                </ul>
+		    </div>
+		    
+		    <h5 th:text="|${#lists.size(project.projectUpdateList)}개의 업데이트가 있습니다.|"></h5>
+		<div>
+		    <ul>
+		        <li th:each="projectUpdate : ${project.projectUpdateList}" th:text="${projectUpdate.uText}"></li>
+		    </ul>
+		</div>
+<!-- isAuthenticated 로그인했을 경우만 보이게 -->
+<!-- th:if 로그인한 사용자와 프로젝트 계정이 같은 경우만 보이게 -->
+		    <form sec:authorize="isAuthenticated()" th:action="@{|/project/update/create/${project.pId}|}" method="post">
+			    <textarea th:if="${project.account !=null and #authentication.getPrincipal().getUsername() == project.account.aEmail}" name="uText" id="uText" rows="15" cols="100"></textarea><br>
+			    <input th:if="${project.account !=null and #authentication.getPrincipal().getUsername() == project.account.aEmail}" type="submit" value="업데이트하기">
+			</form>
+    		</div>
+		    
+
+	    	<!-- side -->
+	    	<div class="col-lg-4">
+	    		<div style="border:1px solid black">
+	    			<h4><b>창작자 소개<b></h4>
+	    			<br>
+					<h5 th:text="|${project.account.aName} 작가님|"></h5>
+					<h5 th:text="${project.pCreator}"></h5>
+					<button type="submit" class="btn btn-default">창작자에게 문의</button>
+	    		</div>
+	    		<br>
+	    		<h5>선물선택</h5>
+	    		<br>
+	    		
+	    		<li class="col-lg-12" th:each="reward : ${project.rewardList}">
+	    			<a th:href="@{|/project/invest/${reward.rwId}|}">
+			    		<div style="border:1px solid black; padding:12px;">
+							<h2 th:text="|${#numbers.formatInteger(reward.rwMin,3)}+|"></h2>
+							<h5 th:text="${reward.rwName}"></h5>
+							<h5 th:text="${reward.rwDesc}"></h5>
+			    		</div>
+			    	</a>
+			    	<form sec:authorize="isAuthenticated()" th:action="@{|/project/reward/delete/${reward.rwId}|}" method="post">
+			    		<input th:if="${project.account !=null and #authentication.getPrincipal().getUsername() == project.account.aEmail}" type="submit" value="삭제">
+			    	</form>
+			    	<br>
+		    	</li>
+	    		
+	    		<form sec:authorize="isAuthenticated()" th:action="@{|/project/reward/create/${project.pId}|}" method="post">
+	    			<div th:if="${project.account !=null and #authentication.getPrincipal().getUsername() == project.account.aEmail}" class="col-lg-12" style="border:1px solid black; padding:12px;">
+		    			선물 이름 <input th:if="${project.account !=null and #authentication.getPrincipal().getUsername() == project.account.aEmail}" type="text" name="rwName" id="rwName"> <br>
+		    			최소후원금액 <input th:if="${project.account !=null and #authentication.getPrincipal().getUsername() == project.account.aEmail}" type="number" name="rwMin" id="rwMin"> <br>
+		    			최대후원금액 <input th:if="${project.account !=null and #authentication.getPrincipal().getUsername() == project.account.aEmail}" type="number" name="rwMax" id="rwMax"> <br>
+		    			선물 소개
+					    <textarea th:if="${project.account !=null and #authentication.getPrincipal().getUsername() == project.account.aEmail}" name="rwDesc" id="rwDesc" cols="60" rows="5"></textarea>
+					    
+					    <input th:if="${project.account !=null and #authentication.getPrincipal().getUsername() == project.account.aEmail}" type="submit" value="답변등록">
+	    			</div>
+	    		</form>
+	    		
+	    		<br>
+	    	</div>
+
+    	</div>
+    </div>
+
+</div>
+</div>
+</div>
+</html>

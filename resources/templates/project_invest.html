@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="/css/project_invest.css" rel="stylesheet" type="text/css">
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+    	$(document).ready(function(){
+		
+		    $('#inPay').hide();   // 초깃값 설정
+				
+			$("input[name='inPay']").change(function(){
+				// 휴대폰 결제 선택 시.
+				if($("input[name='inPay']:checked").val() == '카드 및 계좌'){
+					$('#inPay').show();
+				}
+			});
+		});
+    </script>
+</head>
+<body>
+	<div id="wrapper">
+	
+		<!-- header section -->
+		<header>
+			<div id="title">
+				<span id="tb"><a id="icon" th:href="@{project/list}">tumblcat</a></span>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<span>프로젝트 후원하기</span>
+			</div>
+		</header>
+		<hr>
+		
+		<!-- main section -->
+		<main id="m_content">
+			<div>
+				<img src="/img/cat.jpg">
+				<span th:text="${reward.project?.pCate}"></span>
+				<br />
+				<span id="sell" th:text=${reward.project?.pName}></span>
+				<br />
+				<span>모인 후원 금액</span>
+				<span>남은 기간</span>
+			</div>
+		</main>
+		<br />
+		
+		<form th:action="@{|/project/invest/${reward.rwId}|}" method="POST" enctype="multipart/form-data" th:object="${investorForm}">
+		
+		<!-- section section -->
+		<section id="s_content">
+			<span>선물 정보</span>
+			<br />
+			<table>
+				<tr>
+					<th>선물 구성</th>
+					<td th:text=${reward?.rwName}></td>
+				</tr>
+				<tr>
+					<th>선물 금액</th>
+					<td th:text=|${#numbers.formatInteger(reward.rwMin,3)}원|></td>
+				</tr>
+			</table>
+			<br /><br />
+			
+				<span>후원자 정보</span>
+				<table>
+					<tr>
+						<th>이메일</th>
+						<td sec:authorize="isAuthenticated()" th:text="|${#authentication.getPrincipal().getUsername()}|"></td>
+					</tr>
+					<tr>
+						<th>연락처</th>
+						<td><input type="text" name="inPhone"></td>
+					</tr>
+					<tr>
+						<th>주소</th>
+						<td><textarea name="inAdd"></textarea></td>
+					</tr>
+					<tr>
+						<td colspan="2">* 위 연락처와 이메일로 후원 관련 소식이 전달됩니다.<br />
+									* 연락처 및 이메일 변경은 설정 > 계정 설정에서 가능합니다.
+						</td>
+					</tr>
+				</table>
+				<br /><br />
+					
+				<span>결제 수단</span>
+				<table>
+					<tr>
+						<td colspan="2"><input type="radio" name="inPay" value="카드 및 계좌"> 카드 및 계좌</td>
+					</tr>
+					<tr>
+						<td rowspan="2" width="100"><img src="/img/kb_card.png"></td>
+						<td>
+							<input type="text" name="inPay" id="inPay" style="width:300px;">
+						</td>
+					</tr>
+				</table>
+	
+		</section>
+		
+		<!-- aside section -->
+		<aside id="right-side">
+			<div id="right">
+				<table>
+					<tr>
+						<th>최종 후원 금액</th>
+						<td th:text=|${#numbers.formatInteger(reward.rwMin,3)}원|></td>
+					</tr>
+				</table>
+				<span>프로젝트 성공시, 결제가 진행됩니다. 프로젝트가 무산되거나 중단된 경우, 결제는 자동으로 취소됩니다.</span>
+				<br /><br />
+				<input type="checkbox">개인정보 제 3자 제공 동의
+				<br />
+				<input type="checkbox">후원 유의사항 확인
+				<br /><br />
+				
+				<div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
+			        <div th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+			    </div>
+			    
+				<input type="submit" value="후원하기" class="submit-btn">
+			</div>
+		</aside>
+		
+		</form>
+	</div>
+</body>
+</html>
