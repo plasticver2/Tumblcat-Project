@@ -119,6 +119,13 @@ input:hover[type=submit] {
 	font-size: 0.9rem;
 }
 
+#jh .jh_foot span {
+	display: inline-block;
+	font-size: 0.7rem;
+	margin: 10px 0 10px 5px;
+	font-weight: bold;
+}
+
 #jh label {
 	position: relative;
 	vertical-align: bottom;
